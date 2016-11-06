@@ -18,7 +18,6 @@ kramdown:
   input: GFM
   hard_wrap: false
 highlighter: rouge
-backbutton: "&lt;&lt; "
 
 defaults:
   - scope:
