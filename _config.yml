@@ -1,4 +1,4 @@
-permalink: /blog/title
+permalink: /blog/:title
 
 name: Senan Kelly
 description: CPSSD student in Dublin
