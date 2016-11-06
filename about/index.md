@@ -12,6 +12,7 @@ stuff an email [down the chute](mailto:senan@senan.xyz) for a full CV
 -- the [canterbury scene](https://en.wikipedia.org/wiki/Canterbury_scene)  
 -- [beefheart](http://open.spotify.com/album/0DFhGsFKG7G58cke33GlAh), [zappa](http://open.spotify.com/artist/6ra4GIOgCZQZMOaUECftGN)  
 -- anything ['67](https://en.wikipedia.org/wiki/1967_in_music)  
+-- [uzic.ch](http://stream.uzic.ch:9010/), [psychedelicized](http://199.58.160.146:8006/), [bbc radio 6 music](http://bbcmedia.ic.llnwd.net/stream/bbcmedia_6music_mf_p?s=1469283931&e=1469298331&h=4423c0d9919cfee73a82c1de6178bc84)
 
 # IRC
 -- freenode  
