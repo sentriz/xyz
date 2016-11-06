@@ -1,0 +1,20 @@
+permalink: /blog/title
+
+name: Senan Kelly
+description: CPSSD Student
+timezone: Europe/Dublin
+google_verification: null
+
+include: [".htaccess"]
+exclude: ["README.md", "LICENSE"]
+baseurl: ""
+
+sass:
+  style: compressed
+  sass_dir: _sass
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+highlighter: rouge
