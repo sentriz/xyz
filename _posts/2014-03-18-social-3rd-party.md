@@ -1,5 +1,4 @@
 ---
-layout: post
 title: links to 3rd party apps on social networks
 ---
 

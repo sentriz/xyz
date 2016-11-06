@@ -1,5 +1,4 @@
 ---
-layout: post
 title: disable Facebook video autoplay
 ---
 

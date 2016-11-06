@@ -1,5 +1,4 @@
 ---
-layout: post
 title: using GeekShed's BNC
 ---
 

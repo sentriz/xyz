@@ -1,5 +1,4 @@
 ---
-layout: post
 title: flatten a directory structure in Windows
 ---
 
