@@ -19,5 +19,13 @@ kramdown:
   hard_wrap: false
 highlighter: rouge
 
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Senan Kelly"
+
 gems:
   - jekyll-feed
