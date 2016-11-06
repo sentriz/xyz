@@ -1,0 +1,2 @@
+# senan.xyz
+personal website
