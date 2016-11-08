@@ -23,4 +23,4 @@ stuff an email [down the chute](mailto:senan@senan.xyz) for a full CV
 
 # Setup
 [manjaro linux](https://manjaro.github.io/), bash, git, [i3wm](https://i3wm.org/), vim, tmux, and urxvt.  
-[dotfiles](https://github.com/sentriz/dotfiles)
+my [dotfiles](https://github.com/sentriz/dotfiles)
