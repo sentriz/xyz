@@ -4,7 +4,7 @@
         {% if item.title == 'about' %}
             <strong><a href="{{ item.url }}">{{ item.title }}</a></strong>
         {% else %}
-            <a href="{{ item.url }}">{{ item.title }}</a>
+            <strong><a href="{{ item.url }}">{{ item.title }}</a></strong>
         {% endif %}
         </li>
     {% endfor %}
