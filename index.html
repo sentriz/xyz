@@ -7,15 +7,20 @@ layout: default
     {% include nav.html %}
 
 </div>
+
 <div class="blog">
     <h1>blog posts</h1>
     {% include blogs.html %}
 </div>
+
 <div class="blog">
     <h1>about</h1>
-    <p>CPSSD student from Co. Kildare, Ireland</p>
-    see <a href='{{ site.baseurl }}/about'>here</a> for more
+    <ul>
+        <li>CPSSD student from Co. Kildare, Ireland</li>
+        <li>see <a href='{{ site.baseurl }}/about'>here</a> for more</li>
+    </ul>
 </div>
+
 <div>
     <img class="foot-img" src="{{ site.baseurl }}purdy.jpg">
 </div>
