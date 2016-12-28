@@ -2,9 +2,9 @@
     {% for item in site.data.navigation %}
         <li>
         {% if item.title == 'about' %}
-            <strong><a href="{{ item.url }}">{{ item.title }}</a></strong>
+            <b><a href="{{ item.url }}">{{ item.title }}</a></b>
         {% else %}
-            <strong><a href="{{ item.url }}">{{ item.title }}</a></strong>
+            <a href="{{ item.url }}">{{ item.title }}</a>
         {% endif %}
         </li>
     {% endfor %}
