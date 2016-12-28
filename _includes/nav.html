@@ -2,7 +2,7 @@
     {% for item in site.data.navigation %}
         <li>
         {% if item.title == 'about' %}
-            <b><a href="{{ item.url }}">{{ item.title }}</a></b>
+        <a href="{{ item.url }}"><b>{{ item.title }}</b></a>
         {% else %}
             <a href="{{ item.url }}">{{ item.title }}</a>
         {% endif %}
