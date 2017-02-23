@@ -5,7 +5,7 @@ layout: about
 [cpssd](http://www.computing.dcu.ie/undergraduate/pssd/computational-problem-solving-software-development-cpssd) student from co. kildare, ireland
 
 # programming
-it's all on my [github](https://github.com/sentriz) - but i know python3, java, bash, and bit of web stuff  
+it's all on my [github](https://github.com/sentriz) - but i know python3, java, bash, and bit of web  
 stuff an email [down the chute](mailto:senan@senan.xyz) for a cv  
 
 # music
