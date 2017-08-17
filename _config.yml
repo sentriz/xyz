@@ -7,7 +7,6 @@ google_verification: null
 
 include: [".htaccess"]
 exclude: ["README.md", "LICENSE"]
-baseurl: "/"
 
 sass:
   style: compressed
@@ -29,3 +28,4 @@ defaults:
 
 gems:
   - jekyll-feed
+  - jekyll-sitemap
