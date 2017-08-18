@@ -20,6 +20,10 @@
 
     <body>
         <div class="wrapper">
+            <div class="header">
+                <h1><a href='/'>{{ site.name }}</a></h1>
+                {% include nav.html %}
+            </div>
             {{ content }}
         </div>
     </body>

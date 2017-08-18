@@ -1,65 +1,46 @@
-<html>
-    <head>
-        <title>dank</title>
+---
+layout: default
+title: music search
+---
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style type="text/css">
-            body {
-                margin: 40px auto;
-                max-width: 650px;
-                line-height: 1.6;
-                font-size: 18px;
-                color: #444;
-                padding: 0 10px
-            }
-            h1, h2, h3 {
-                line-height: 1.2
-            }
-        </style>
-    </head>
+<h2>dank ass music search</h2>
+<p>we got it all over here</p>
+<li><input name="name" id="discogs"  type="checkbox" checked="checked">discogs</input></li>
+<li><input name="name" id="beatport" type="checkbox" checked="checked">beatport</input></li>
+<li><input name="name" id="xlr8r"    type="checkbox" checked="checked">xlr8r</input></li>
+<li><input name="name" id="bandcamp" type="checkbox">bandcamp</input></li>
+<li><input name="name" id="resident" type="checkbox">resident advisor</input></li>
+<li><input name="name" id="decks"    type="checkbox">decks.de</input></li>
+<li><input name="name" id="juno"     type="checkbox">juno</input></li>
 
-    <body>
-        <h1>dank ass music search</h1>
-        <p>we got it all over here</p>
-        <li><input name="name" id="discogs"  type="checkbox" checked="checked">discogs</input></li>
-        <li><input name="name" id="beatport" type="checkbox" checked="checked">beatport</input></li>
-        <li><input name="name" id="xlr8r"    type="checkbox" checked="checked">xlr8r</input></li>
-        <li><input name="name" id="bandcamp" type="checkbox">bandcamp</input></li>
-        <li><input name="name" id="resident" type="checkbox">resident advisor</input></li>
-        <li><input name="name" id="decks"    type="checkbox">decks.de</input></li>
-        <li><input name="name" id="juno"     type="checkbox">juno</input></li>
+<p>(<em>note:</em> you <em>might</em> have to look for a 'popups blocked' thing and press <strong>allow</strong> the first time you use this)</p>
 
-        (<em>note:</em> you <em>might</em> have to look for a 'popups blocked' thing and press <strong>allow</strong> the first time you use this)</p>
-
-        <script>
-            function submit(){
-                var query = document.getElementById('query');
-                var escaped = escape(query.value);
-                if(document.getElementById('discogs').checked) {
-                    window.open("https://www.discogs.com/search/?q=" + escaped, "1");
-                }
-                if(document.getElementById('beatport').checked) {
-                    window.open("https://www.beatport.com/search?q=" + escaped, "2");
-                }
-                if(document.getElementById('xlr8r').checked) {
-                    window.open("https://www.xlr8r.com/?s=" + escaped, "3");
-                }
-                if(document.getElementById('bandcamp').checked) {
-                    window.open("https://bandcamp.com/search?q=" + escaped, "4");
-                }
-                if(document.getElementById('resident').checked) {
-                    window.open("https://www.residentadvisor.net/search.aspx?searchstr=" + escaped, "5");
-                }
-                if(document.getElementById('decks').checked) {
-                    window.open("https://www.decks.de/", "6");
-                }
-                if(document.getElementById('juno').checked) {
-                    window.open("http://www.juno.co.uk/search/?q%5Ball%5D%5B%5D=" + escaped, "7");
-                }
-            }
-        </script>
-        enter query: <input type="text" id="query" />
-        <button onclick="submit();" href="javascript:;">search</button>
-    </body>
-</html>
+<script>
+    function submit(){
+        var query = document.getElementById('query');
+        var escaped = escape(query.value);
+        if(document.getElementById('discogs').checked) {
+            window.open("https://www.discogs.com/search/?q=" + escaped, "1");
+        }
+        if(document.getElementById('beatport').checked) {
+            window.open("https://www.beatport.com/search?q=" + escaped, "2");
+        }
+        if(document.getElementById('xlr8r').checked) {
+            window.open("https://www.xlr8r.com/?s=" + escaped, "3");
+        }
+        if(document.getElementById('bandcamp').checked) {
+            window.open("https://bandcamp.com/search?q=" + escaped, "4");
+        }
+        if(document.getElementById('resident').checked) {
+            window.open("https://www.residentadvisor.net/search.aspx?searchstr=" + escaped, "5");
+        }
+        if(document.getElementById('decks').checked) {
+            window.open("https://www.decks.de/", "6");
+        }
+        if(document.getElementById('juno').checked) {
+            window.open("http://www.juno.co.uk/search/?q%5Ball%5D%5B%5D=" + escaped, "7");
+        }
+    }
+</script>
+enter query: <input type="text" id="query" />
+<button onclick="submit();" href="javascript:;">search</button>
