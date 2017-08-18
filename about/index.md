@@ -26,4 +26,4 @@ title: about
 -- coldfront (#fc)
 
 # setup
-[manjaro linux](https://manjaro.github.io/), bash, git, [i3wm](https://i3wm.org/), vim, tmux, urxvt [[dotfiles](https://github.com/sentriz/dotfiles)]
+[manjaro linux](https://manjaro.github.io/), fish, git, [i3wm](https://i3wm.org/), vim, tmux, urxvt [[dotfiles](https://github.com/sentriz/dotfiles)]
