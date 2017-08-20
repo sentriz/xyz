@@ -1,8 +1,8 @@
 - title: about
-  url: about
+  url: /about
 
 - title: rss
-  url: feed.xml
+  url: /feed.xml
 
 - title: github
   url: https://github.com/sentriz
