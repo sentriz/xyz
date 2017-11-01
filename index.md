@@ -1,5 +1,6 @@
 ---
 layout: default
+title: senan kelly
 ---
 
 # about
