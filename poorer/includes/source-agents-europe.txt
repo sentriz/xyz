@@ -1,0 +1,264 @@
+<div id="demo-agents">
+ <ul>
+  <li id="albania">
+
+    <!-- Albania -->
+
+  </li>
+  <li id="andorra">
+
+    <!-- Andorra -->
+
+  </li>
+  <li id="austria">
+
+    <!-- Austria -->
+
+  </li>
+  <li id="belarus">
+
+    <!-- Belarus -->
+
+  </li>
+  <li id="belgium">
+
+    <!-- Belgium -->
+
+  </li>
+  <li id="bosnia-and-herzegovina">
+
+    <!-- Bosnia and Herzegovina -->
+
+  </li>
+  <li id="bulgaria">
+
+    <!-- Bulgaria -->
+
+  </li>
+  <li id="croatia">
+
+    <!-- Croatia -->
+
+  </li>
+  <li id="cyprus">
+
+    <!-- Cyprus -->
+
+  </li>
+  <li id="czech-republic">
+
+    <!-- Czech Republic -->
+
+  </li>
+  <li id="denmark">
+
+    <!-- Denmark -->
+
+  </li>
+  <li id="estonia">
+
+    <!-- Estonia -->
+
+  </li>
+  <li id="france">
+
+    <!-- France -->
+
+  </li>
+  <li id="finland">
+
+    <!-- Finland -->
+
+  </li>
+  <li id="georgia">
+
+    <!-- Georgia -->
+
+  </li>
+  <li id="germany">
+
+    <!-- Germany -->
+
+  </li>
+  <li id="greece">
+
+    <!-- Greece -->
+
+  </li>
+  <li id="hungary">
+
+    <!-- Hungary -->
+
+  </li>
+  <li id="iceland">
+
+    <!-- Iceland -->
+
+  </li>
+  <li id="ireland">
+
+    <!-- Ireland -->
+
+  </li>
+  <li id="san-marino">
+
+    <!-- San Marino -->
+
+  </li>
+  <li id="italy">
+
+    <!-- Italy -->
+
+  </li>
+  <li id="kosovo">
+
+    <!-- Kosovo -->
+
+  </li>
+  <li id="latvia">
+
+    <!-- Latvia -->
+
+  </li>
+  <li id="liechtenstein">
+
+    <!-- Liechtenstein -->
+
+  </li>
+  <li id="lithuania">
+
+    <!-- Lithuania -->
+
+  </li>
+  <li id="luxembourg">
+
+    <!-- Luxembourg -->
+
+  </li>
+  <li id="macedonia">
+
+    <!-- Macedonia F.Y.R.O.M. -->
+
+  </li>
+  <li id="malta">
+
+    <!-- Malta -->
+
+  </li>
+  <li id="moldova">
+
+    <!-- Moldova -->
+
+  </li>
+  <li id="monaco">
+
+    <!-- Monaco -->
+
+  </li>
+  <li id="montenegro">
+
+    <!-- Montenegro -->
+
+  </li>
+  <li id="netherlands">
+
+    <!-- Netherlands -->
+
+  </li>
+  <li id="norway">
+
+    <!-- Norway -->
+
+  </li>
+  <li id="poland">
+
+    <!-- Poland -->
+
+  </li>
+  <li id="portugal">
+
+    <!-- Portugal -->
+
+  </li>
+  <li id="romania">
+
+    <!-- Romania -->
+
+  </li>
+  <li id="russian-federation">
+
+    <!-- Russian Federation -->
+
+  </li>
+  <li id="serbia">
+
+    <!-- Serbia -->
+
+  </li>
+  <li id="slovakia">
+
+    <!-- Slovakia -->
+
+  </li>
+  <li id="slovenia">
+
+    <!-- Slovenia -->
+
+  </li>
+  <li id="spain">
+
+    <!-- Spain -->
+
+  </li>
+  <li id="sweden">
+
+    <!-- Sweden -->
+
+  </li>
+  <li id="switzerland">
+
+    <!-- Switzerland -->
+
+  </li>
+  <li id="turkey">
+
+    <!-- Turkey -->
+
+  </li>
+  <li id="ukraine">
+
+    <!-- Ukraine -->
+
+  </li>
+  <li id="united-kingdom">
+
+    <!-- United Kingdom -->
+
+  </li>
+  <li id="england">
+
+    <!-- England -->
+
+  </li>
+  <li id="isle-of-man">
+
+    <!-- Isle of Man -->
+
+  </li>
+  <li id="northern-ireland">
+
+    <!-- Northern Ireland -->
+
+  </li>
+  <li id="scotland">
+
+    <!-- Scotland -->
+
+  </li>
+  <li id="wales">
+
+    <!-- Wales -->
+
+  </li>
+ </ul>
+</div>
