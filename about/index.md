@@ -7,7 +7,7 @@ title: about
 
 # programming
 -- my [github](https://github.com/sentriz)
--- i know python3, java, bash, and bit of web  
+-- i know python3, java, bash, and a bit of web  
 -- stuff an email [down the chute](mailto:senan@senan.xyz) for a cv  
 
 # music
