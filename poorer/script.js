@@ -58,8 +58,6 @@ onHoverCountry = function(e) {
             more.push(key);
         }
     });
-    console.log(more);
-    console.log(less);
     var map = document.getElementById("main_map");
     countries = map.getElementsByTagName("li");
     for (var i = 0; i < countries.length; ++i) {
