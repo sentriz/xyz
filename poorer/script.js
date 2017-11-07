@@ -43,6 +43,7 @@ gdps = {
 }
 
 onHoverCountry = function(e) {
+    unHoverCountry();
     var country = e.children('a').attr('href');
     var gdp = gdps[country];
     var more = []
