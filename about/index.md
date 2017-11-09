@@ -19,7 +19,7 @@ title: about
 
 
 # irc
--- freenode (#manjaro, #beets, #i3, #vim, #python, #kodi, ...)  
+-- freenode (#manjaro, #beets, #i3, #git, #vim, #python, #kodi, ...)  
 -- geekshed ([#senan](https://kiwiirc.com/client/irc.geekshed.net/?nick=username|?#senan))  
 -- espernet (#renoise)  
 -- blinkenshell  
