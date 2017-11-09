@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/sentriz
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://senan.xyz
+  * I am sentriz (https://keybase.io/sentriz) on keybase.
+  * I have a public key ASC2Wye8y5Iiw25SGBYDUvv2MRiIIPfAlG7-MRLLvXBRRAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120b65b27bccb9222c36e5218160352fbf631188820f7c0946efe3112cbbd7051440a",
+      "host": "keybase.io",
+      "kid": "0120b65b27bccb9222c36e5218160352fbf631188820f7c0946efe3112cbbd7051440a",
+      "uid": "d8ea4ede6ee9b0816e7144df1bea6619",
+      "username": "sentriz"
+    },
+    "merkle_root": {
+      "ctime": 1510244999,
+      "hash": "c0917b796aaa0dbd863d54f54fcef59a70e93c76f507625c9b7f64121b281364fef871b79e4359b639df86d43f4a6e29239d16bcda79cd5c916cdf2428426178",
+      "hash_meta": "e5cad6635ec020045b6567a2a530b9524e4f155c4a71c10f393a173a05de0314",
+      "seqno": 1685981
+    },
+    "service": {
+      "hostname": "senan.xyz",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.35"
+  },
+  "ctime": 1510245015,
+  "expire_in": 504576000,
+  "prev": "211d052dcaf64251fdc478e545182191160982d0eadf3b57a24396e65cc57f81",
+  "seqno": 25,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgtlsnvMuSIsNuUhgWA1L79jEYiCD3wJRu/jESy71wUUQKp3BheWxvYWTFA0F7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwYjY1YjI3YmNjYjkyMjJjMzZlNTIxODE2MDM1MmZiZjYzMTE4ODgyMGY3YzA5NDZlZmUzMTEyY2JiZDcwNTE0NDBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwYjY1YjI3YmNjYjkyMjJjMzZlNTIxODE2MDM1MmZiZjYzMTE4ODgyMGY3YzA5NDZlZmUzMTEyY2JiZDcwNTE0NDBhIiwidWlkIjoiZDhlYTRlZGU2ZWU5YjA4MTZlNzE0NGRmMWJlYTY2MTkiLCJ1c2VybmFtZSI6InNlbnRyaXoifSwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE1MTAyNDQ5OTksImhhc2giOiJjMDkxN2I3OTZhYWEwZGJkODYzZDU0ZjU0ZmNlZjU5YTcwZTkzYzc2ZjUwNzYyNWM5YjdmNjQxMjFiMjgxMzY0ZmVmODcxYjc5ZTQzNTliNjM5ZGY4NmQ0M2Y0YTZlMjkyMzlkMTZiY2RhNzljZDVjOTE2Y2RmMjQyODQyNjE3OCIsImhhc2hfbWV0YSI6ImU1Y2FkNjYzNWVjMDIwMDQ1YjY1NjdhMmE1MzBiOTUyNGU0ZjE1NWM0YTcxYzEwZjM5M2ExNzNhMDVkZTAzMTQiLCJzZXFubyI6MTY4NTk4MX0sInNlcnZpY2UiOnsiaG9zdG5hbWUiOiJzZW5hbi54eXoiLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC4zNSJ9LCJjdGltZSI6MTUxMDI0NTAxNSwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsInByZXYiOiIyMTFkMDUyZGNhZjY0MjUxZmRjNDc4ZTU0NTE4MjE5MTE2MDk4MmQwZWFkZjNiNTdhMjQzOTZlNjVjYzU3ZjgxIiwic2Vxbm8iOjI1LCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQBY/ag3p9XoJztvOQQuVpKFetIUNnwDM4c2N4YPJJdsDuG6d8Zt2kAjeD7VGo7ZhBaK4USkF+pN8ir4DqMeJtAqoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCAuTSjVCrF4VqnkuO7xD6nbOhGdqwbY4MHZmXeXYwUYe6N0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/sentriz
+
+==================================================================
