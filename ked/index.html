@@ -1,38 +1,25 @@
----
-layout: default
-title: ked
----
+<!DOCTYPE html>
 
-<h2>sham, see u der now</h2>
-<p>in <span id="countdown"/></p>
-<p>anal</p>
-<script>
-    var end = new Date('12/17/2017 12:00 AM');
-
-    var _second = 1000;
-    var _minute = _second * 60;
-    var _hour = _minute * 60;
-    var _day = _hour * 24;
-    var timer;
-
-    function showRemaining() {
-        var now = new Date();
-        var distance = end - now;
-        if (distance < 0) {
-            clearInterval(timer);
-            document.getElementById('countdown').innerHTML = 'EXPIRED!';
-            return;
-        }
-        var days = Math.floor(distance / _day);
-        var hours = Math.floor((distance % _day) / _hour);
-        var minutes = Math.floor((distance % _hour) / _minute);
-        var seconds = Math.floor((distance % _minute) / _second);
-
-        document.getElementById('countdown').innerHTML = days + ' days, ';
-        document.getElementById('countdown').innerHTML += hours + ' hours, ';
-        document.getElementById('countdown').innerHTML += minutes + ' minutes, and ';
-        document.getElementById('countdown').innerHTML += seconds + ' seconds';
-    }
-    showRemaining();
-    timer = setInterval(showRemaining, 1000);
-</script>
+<html>
+    <head>
+        <title>hey paul</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <marquee scrollamount="50" class="image-marquee">
+            <h1 class="blink" id="heading">
+                <font color="green">welcome</font>
+                <font color="white">home</font>
+                <font color="orange">ked</font>
+            </h1>
+            <img class="marq-image" src="images/yes.jpg">
+            <img class="marq-image" src="images/p.jpg">
+            <img class="marq-image" src="images/climb.jpg">
+            <img class="marq-image" src="images/bu.jpg">
+            <img class="marq-image" src="images/yes.jpg">
+            <img class="marq-image" src="images/p.jpg">
+            <img class="marq-image" src="images/climb.jpg">
+            <img class="marq-image" src="images/bu.jpg">
+        </marquee>
+    </body>
+</html>
