@@ -3,7 +3,8 @@ layout: default
 title: about
 ---
 
-[cpssd](http://www.computing.dcu.ie/undergraduate/pssd/computational-problem-solving-software-development-cpssd) student from co. kildare, ireland
+# about
+{% include tagline.md %}
 
 # programming
 -- my [github](https://github.com/sentriz)
