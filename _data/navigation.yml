@@ -1,14 +1,10 @@
 - title: about
   url: /about
-
 - title: rss
   url: /feed.xml
-
 - title: github
   url: https://github.com/sentriz
-
 - title: keybase
   url: https://keybase.io/sentriz
-
 - title: lastfm
-  url: http://last.fm/user/sentriz
+  url: https://last.fm/user/sentriz
