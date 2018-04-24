@@ -5,9 +5,9 @@ title: senan kelly
 
 # about
 <p markdown="1">– {% include tagline.md %}<br />
-– [more]({{ site.baseurl }}/about)</p>
+– [more]({{ '/about' | relative_url }})</p>
 
 # blog posts
-{% include blogs.md %}
+{% include blog_posts.md %}
 
-<img class="fullwidth" src="{{ site.baseurl }}/purdy.jpg">
+<img class="fullwidth" src="{{ '/purdy.jpg' | relative_url }}">

@@ -9,20 +9,20 @@
         {% if site.google_verification %}
         <meta name="google-site-verification" content="{{ site.google_verify }}">
         {% endif %}
-        <link rel="icon" href="{{ site.baseurl }}/favicon.ico">
+        <link rel="icon" href="{{ '/assets/favicon.ico' | relative_url }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700">
-        <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/main.css">
+        <link rel="stylesheet" type="text/css" href="{{ '/assets/css/main.css' | relative_url }}">
     </head>
 
     <body>
         <div class="wrapper">
             <div class="header">
-                <h1><a href='/'>{{ site.name }}</a></h1>
-                {% include nav.html %}
+                <h1><a href='/'>{{ site.title }}</a></h1>
+                {% include navigation_bar.html %}
             </div>
             {{ content }}
             <div class="footer">
-                <p><a target="_blank" href="https://github.com/sentriz/xyz">[source]</a></p>
+                {% include source_button.html %}
             </div>
         </div>
     </body>
