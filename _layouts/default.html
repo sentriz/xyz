@@ -4,11 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        {% if page.title %}
-        <title>{{ page.title }}</title>
-        {% else %}
-        <title>{{ site.name }}</title>
-        {% endif %}
+        <title>{{ page.title | default: site.name }}</title>
         <meta name="description" content="{{ site.description }}">
         {% if site.google_verification %}
         <meta name="google-site-verification" content="{{ site.google_verify }}">
@@ -25,6 +21,9 @@
                 {% include nav.html %}
             </div>
             {{ content }}
+            <div class="footer">
+                <p><a target="_blank" href="https://github.com/sentriz/xyz">[source]</a></p>
+            </div>
         </div>
     </body>
 </html>
