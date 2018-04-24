@@ -27,5 +27,11 @@ title: about
 -- coldfront (#fc)
 
 # setup
--- [manjaro](https://manjaro.org/) net, [fish](https://fishshell.com/), git, [i3](https://i3wm.org/), vim, tmux, [alacritty](https://github.com/jwilm/alacritty)  
+-- {% for item in site.data.setup -%}
+       {%- if item.link %}
+           [{{ item.name }}]({{ item.link }})
+       {%- else %}
+           {{ item.name }}
+       {%- endif %}
+   {%- endfor %}  
 -- [dotfiles](https://github.com/sentriz/dotfiles)

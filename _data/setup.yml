@@ -1,0 +1,11 @@
+- name: manjaro net
+  link: https://manjaro.org/
+- name: fish
+  link: https://fishshell.com/
+- name: git
+- name: i3
+  link: https://i3wm.org/
+- name: vim
+- name: tmux
+- name: alacritty
+  link: https://github.com/jwilm/alacritty
