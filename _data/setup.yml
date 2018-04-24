@@ -8,4 +8,6 @@
 - name: vim
 - name: tmux
 - name: alacritty
-  link: https://github.com/jwilm/alacritty
+  link: https://github.com/jwilm/alacritty/
+- name: dotfiles
+  link: https://github.com/sentriz/dotfiles/

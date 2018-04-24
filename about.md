@@ -26,7 +26,7 @@ title: about
 -- blinkenshell  
 -- coldfront (#fc)
 
-# setup, [link](https://github.com/sentriz/dotfiles)
+# setup
 {% for item in site.data.setup -%}
    -- {% if item.link %}
           [{{ item.name }}]({{ item.link }})  
