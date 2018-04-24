@@ -7,9 +7,9 @@ title: about
 {% include tagline.md %}
 
 # programming
--- my [github](https://github.com/sentriz)
--- i know python3, java, bash, and a bit of web  
--- stuff an email [down the chute](mailto:senan@senan.xyz) for a cv  
+-- python3, java, bash, and a bit of web  
+-- [github](https://github.com/sentriz)  
+-- stuff an email [down the chute](mailto:senan@senan.xyz) for a cv
 
 # music
 -- the [canterbury scene](https://en.wikipedia.org/wiki/canterbury_scene)  
