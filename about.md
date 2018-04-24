@@ -27,5 +27,5 @@ title: about
 -- coldfront (#fc)
 
 # setup
--- [manjaro](https://manjaro.org/), [fish](https://fishshell.com/), git, [i3](https://i3wm.org/), vim, tmux, [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html)  
+-- [manjaro](https://manjaro.org/) net, [fish](https://fishshell.com/), git, [i3](https://i3wm.org/), vim, tmux, [alacritty](https://github.com/jwilm/alacritty)  
 -- [dotfiles](https://github.com/sentriz/dotfiles)
