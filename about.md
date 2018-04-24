@@ -26,12 +26,11 @@ title: about
 -- blinkenshell  
 -- coldfront (#fc)
 
-# setup
--- {% for item in site.data.setup -%}
-       {%- if item.link %}
-           [{{ item.name }}]({{ item.link }})
-       {%- else %}
-           {{ item.name }}
-       {%- endif %}
-   {%- endfor %}  
--- [dotfiles](https://github.com/sentriz/dotfiles)
+# setup, [link](https://github.com/sentriz/dotfiles)
+{% for item in site.data.setup -%}
+   -- {% if item.link %}
+          [{{ item.name }}]({{ item.link }})  
+      {% else %}
+          {{ item.name }}  
+      {% endif %}
+{%- endfor %}   
