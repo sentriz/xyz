@@ -108,7 +108,7 @@ ul {
 .footer {
     text-align: right;
     a {
-        color: lightgrey;
+        color: $color_grey
     }
 }
 
@@ -238,4 +238,8 @@ ul {
 .fullwidth {
     max-width: 100%;
     max-height: auto;
+}
+
+td {
+    padding-right: 10px;
 }
