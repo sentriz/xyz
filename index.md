@@ -10,4 +10,4 @@ title: senan kelly
 # blog posts
 {% include blog_posts.md %}
 
-<img class="fullwidth" src="{{ '/purdy.jpg' | relative_url }}">
+<img class="fullwidth" src="{{ '/assets/images/purdy.jpg' | relative_url }}">
