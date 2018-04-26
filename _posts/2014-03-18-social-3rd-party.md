@@ -6,9 +6,9 @@ handy list for getting rid of those old apps you don't want to have access to yo
 
 |name|link|
 |:--|:--|
-|facebook|[ https://www.facebook.com/settings?tab=applications](https://www.facebook.com/settings?tab=applications)|
+|facebook|[https://www.facebook.com/settings?tab=applications](https://www.facebook.com/settings?tab=applications)|
 |twitter|[https://twitter.com/settings/applications](https://twitter.com/settings/applications)|
-|google|[https://security.google.com/settings/security/permissions?pli=1](https://security.google.com/settings/security/permissions)|
+|google|[https://security.google.com/settings/security/permissions](https://security.google.com/settings/security/permissions)|
 |soundcloud|[http://soundcloud.com/settings/connections](http://soundcloud.com/settings/connections)|
-|reddit|[https://www.reddit.com/prefs/apps/](https://www.reddit.com/prefs/apps/)|
+|reddit|[https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps/)|
 |dropbox|[https://www.dropbox.com/account#security](https://www.dropbox.com/account#security)|
