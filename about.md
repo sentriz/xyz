@@ -4,7 +4,7 @@ title: about
 ---
 
 # about
-{% include tagline.md %}
+-- {% include tagline.md %}
 
 # programming
 -- python3, java, bash, and a bit of web  
