@@ -1,7 +1,11 @@
 <ul>
-    {% for item in site.data.navigation %}
+    {%- for item in site.data.navigation %}
     <li>
-        <a href="{{ item.url }}">{{ item.title }}</a>
+        {% if item.new_tab -%}
+            <a target="_blank" href="{{ item.url }}">{{ item.title }}</a>
+        {%- else -%}
+            <a href="{{ item.url }}">{{ item.title }}</a>
+        {%- endif %}
     </li>
-    {% endfor %}
+    {%- endfor %}
 </ul>

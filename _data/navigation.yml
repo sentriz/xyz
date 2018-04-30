@@ -2,9 +2,13 @@
   url: /about
 - title: rss
   url: /feed.xml
+  new_tab: true
 - title: github
   url: https://github.com/sentriz/
+  new_tab: true
 - title: keybase
   url: https://keybase.io/sentriz/
+  new_tab: true
 - title: lastfm
   url: https://last.fm/user/sentriz/
+  new_tab: true
