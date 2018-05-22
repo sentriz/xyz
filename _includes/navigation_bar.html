@@ -1,11 +1,10 @@
+{% assign current_page = page.url | downcase | remove: "/" %}
 <ul>
     {%- for item in site.data.navigation %}
     <li>
-        {% if item.new_tab -%}
-            <a target="_blank" href="{{ item.url }}">{{ item.title }}</a>
-        {%- else -%}
-            <a href="{{ item.url }}">{{ item.title }}</a>
-        {%- endif %}
+        <a {% if item.new_tab %}target="_blank"{% endif %} 
+           {% if current_page == item.title %}class="active"{% endif %}
+            href="{{ item.url }}">{{ item.title }}</a>
     </li>
     {%- endfor %}
 </ul>
