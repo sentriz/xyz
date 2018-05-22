@@ -6,6 +6,7 @@ google_analytics: UA-118116849-1
 permalink: pretty
 markdown: kramdown
 highlighter: rouge
+repository: sentriz/xyz
 
 sass:
   style: compressed
@@ -31,3 +32,4 @@ exclude:
 plugins:
     - jekyll-feed
     - jekyll-sitemap
+    - jekyll-seo-tag
