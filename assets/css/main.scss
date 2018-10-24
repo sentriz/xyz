@@ -102,6 +102,15 @@ ul {
             display: inline;
             padding: 0;
             padding-left: 5px;
+            &:first-of-type:before {
+                content: '';
+                width: 1.215em;
+                position: absolute;
+                border-right: 1px dashed rgba(0, 0, 0, 0.075);
+                top: 0;
+                bottom: 0;
+                z-index: -200;
+            }
         }
     }
     .active {
