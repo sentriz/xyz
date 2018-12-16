@@ -7,12 +7,11 @@ title: about
 -- {% include tagline.md %}
 
 # programming ([github](https://github.com/sentriz))
--- python 3, flask, sql, sqlalchemy, more  
--- js, vue, es6  
--- some go  
--- some java  
+-- python 3, flask, sqlalchemy, more  
+-- vue, es6, etc  
+-- some go, some java, some sql  
 -- shell  
--- docker, traefik, nginx  
+-- docker, kubernetes  
 
 # music ([lastfm](https://www.last.fm/user/sentriz))
 -- [beefheart](http://open.spotify.com/album/0dfhgsfkg7g58cke33glah), [zappa](http://open.spotify.com/artist/6ra4giogczqzmoauecftgn)  
