@@ -1,0 +1,81 @@
+---
+layout: default
+title: music search
+style: music-search
+---
+
+<h2>bulk music search</h2>
+<div id='app'></div>
+<p>(<em>note:</em> you <em>might</em> have to look for a 'popups blocked' thing and press <strong>allow</strong> the first time you use this)</p>
+
+<script src='https://unpkg.com/hyperapp'>
+</script>
+<script>
+    const { h, app } = hyperapp
+    const state = {
+        query: '',
+        sites: [
+            { name: 'discogs', url: 'https://www.discogs.com/search/?q=', checked: true },
+            { name: 'beatport', url: 'https://www.beatport.com/search?q=', checked: true },
+            { name: 'xlr8r', url: 'https://www.xlr8r.com/?s=', checked: true },
+            { name: 'bandcamp', url: 'https://bandcamp.com/search?q=' },
+            { name: 'resident', url: 'https://www.residentadvisor.net/search.aspx?searchstr=' },
+            { name: 'decks', url: 'https://www.decks.de/' },
+            { name: 'juno', url: 'http://www.juno.co.uk/search/?q%5Ball%5D%5B%5D=' },
+        ]
+    }
+    const actions = {
+        setURL: ({ index, value }) => state => ({
+            sites: state.sites.map((site, i) => i === index
+                ? { ...site, checked: value }
+                : site
+            )
+        }),
+        setQuery: value => state => ({
+            query: value
+        }),
+        openWindows: () => state => {
+            for (var [i, site] of state.sites.entries()) {
+                if (!site.checked) {
+                    continue
+                }
+                window.open(`${site.url}${state.query}`, i)
+            }
+        }
+    }
+    const view = (state, actions) => h('div', {}, [
+        h('p', {}, 'select sites:'),
+        ...state.sites.map((site, i) => h('li', {}, [
+            h('input', {
+                type: 'checkbox',
+                checked: site.checked,
+                onclick: e => {
+                    e.preventDefault()
+                    actions.setURL({
+                        index: i,
+                        value: e.target.checked,
+                    })
+                },
+            }, []),
+            site.name,
+        ])),
+        h('div', {
+            id: 'query-line',
+        }, [
+            h('p', {}, 'enter query:'),
+            h('input', {
+                value: state.query,
+                oninput: e => {
+                    actions.setQuery(e.target.value)
+                },
+            }, []),
+            h('button', {
+                type: 'button',
+                onclick: () => {
+                    actions.openWindows()
+                }
+            }, 'search'),
+        ]),
+    ])
+    app(state, actions, view, document.getElementById('app'))
+</script>

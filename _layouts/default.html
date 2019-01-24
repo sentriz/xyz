@@ -22,7 +22,9 @@
                 <h1><a href='/'>{{ site.title }}</a></h1>
                 {% include navigation_bar.html %}
             </div>
-            {{ content }}
+            <div class="{{ page.style }}">
+                {{ content }}
+            </div>
             <div class="footer">
                 {% include source_button.html %}
             </div>

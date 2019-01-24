@@ -5,6 +5,8 @@
 @import "config";
 
 
+// everything
+
 body {
     color: $color-black;
     background: $color-white;
@@ -32,6 +34,12 @@ p {
     font-size: 1em;
     line-height: 150%;
     margin-bottom: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+strong {
+    font-weight: 600;
 }
 
 a {
@@ -255,4 +263,16 @@ ul {
 
 td {
     padding-right: 10px;
+}
+
+
+// pages
+
+.music-search {
+    #query-line {
+        display: flex;
+    }
+    #app {
+        margin: 1.5rem 0;
+    }
 }
