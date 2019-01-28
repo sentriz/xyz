@@ -5,7 +5,7 @@
 - name: git
 - name: i3
   link: https://i3wm.org/
-- name: vim
+- name: neovim
 - name: tmux
 - name: alacritty
   link: https://github.com/jwilm/alacritty/
