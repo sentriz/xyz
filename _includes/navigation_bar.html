@@ -2,9 +2,9 @@
 <ul>
     {%- for item in site.data.navigation %}
     <li>
-        <a {% if item.new_tab %}target="_blank"{% endif %} 
-           {% if current_page == item.title %}class="active"{% endif %}
-            href="{{ item.url }}">{{ item.title }}</a>
+        <a {% if item.new_tab -%}target="_blank" {% endif -%}
+           {%- if current_page == item.title -%}class="active"{%- endif -%}
+           href="{{ item.url }}">{{ item.title }}</a>
     </li>
     {%- endfor %}
 </ul>
