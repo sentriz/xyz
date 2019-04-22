@@ -5,8 +5,6 @@
 @import "config";
 
 
-// everything
-
 body {
     color: $color-black;
     background: $color-white;
@@ -18,7 +16,6 @@ body {
 
 h1 {
     font-size: 1.2em;
-    // font-style: italic;
     margin-top: 30px;
     margin-bottom: 5px;
 }
@@ -110,15 +107,6 @@ ul {
             display: inline;
             padding: 0;
             padding-left: 5px;
-            &:first-of-type:before {
-                content: '';
-                width: 1.215em;
-                position: absolute;
-                border-right: 1px dashed rgba(0, 0, 0, 0.075);
-                top: 0;
-                bottom: 0;
-                z-index: -200;
-            }
         }
     }
     .active {

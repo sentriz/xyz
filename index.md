@@ -4,13 +4,16 @@ title: senan kelly
 ---
 
 # about
-<p markdown='1'>-- {% include tagline.md %}</p>
-<p markdown='1'>-- **[more]({{ '/about' | relative_url }})**</p>
+-- {% include tagline.md %}
+-- **[more]({{ '/about' | relative_url }})**
 
 # pages
 -- [music search]({{ '/music_search' | relative_url }})
 
 # blog posts
-{% include blog_posts.md %}
+{% for post in site.posts -%}
+  -- <span class="date">{{ post.date | date: '%Y %b %d' }}</span>, [{{ post.title }}]({{ post.url }})  
+{% endfor %}
 
+# &nbsp;
 <img class='fullwidth' src="{{ '/assets/images/purdy.jpg' | relative_url }}">
