@@ -1,35 +1,31 @@
 title: senan kelly
 description: cpssd student in dublin
-timezone: Europe/Dublin
-permalink: /blog/:title
+url: https://senan.xyz/
+repo: https://github.com/sentriz/xyz/
 google_analytics: UA-118116849-1
-permalink: pretty
+timezone: Europe/Dublin
+locale: en_IE
 markdown: kramdown
 highlighter: rouge
-repository: sentriz/xyz
-
+permalink: pretty
 sass:
   style: compressed
   sass_dir: _sass
-
 kramdown:
   input: GFM
   hard_wrap: false
-
 defaults:
   - scope:
-      path: ""
-      type: "posts"
+      path: ''
+      type: posts
     values:
-      layout: "post"
-      author: "Senan Kelly"
-
+      layout: post
+      author: Senan Kelly
+      css_file: post
 exclude:
     - CNAME
     - Gemfile
     - Gemfile.lock
-
 plugins:
     - jekyll-feed
     - jekyll-sitemap
-    - jekyll-seo-tag

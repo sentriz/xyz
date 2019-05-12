@@ -15,5 +15,4 @@ title: senan kelly
   -- <span class="date">{{ post.date | date: '%Y %b %d' }}</span>, [{{ post.title }}]({{ post.url }})  
 {% endfor %}
 
-# &nbsp;
-<img class='fullwidth' src="{{ '/assets/images/purdy.jpg' | relative_url }}">
+<img id="purdy" src="{{ '/assets/images/purdy.jpg' | relative_url }}">

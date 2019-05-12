@@ -1,0 +1,55 @@
+---
+---
+
+@import reset
+@import config
+
+body
+  max-width: 600px
+  margin: 0 auto
+  padding: 0 1rem
+  font-size: 16px
+  font-family: "Inconsolata"
+  overflow-y: scroll
+
+img
+  width: 100%
+  height: auto
+
+h1
+  font-size: 1.2rem
+
+a
+  text-decoration: none
+  color: #1a0dab
+
+td
+  border: 0px solid transparent
+  background-clip: padding-box
+
+tr > td + td
+  border-left-width: 0.5rem
+
+h1, #purdy
+  margin-top: $section-margin
+
+#header
+  display: flex
+  justify-content: space-between
+  align-items: baseline
+  margin: $section-margin-big 0
+  h1
+    // overwrite the general h1 rule to use
+    // only `#header`'s margin rule
+    margin-top: 0
+    a
+      color: black
+  ul li
+    display: inline-block
+    padding: 0 0.25rem
+
+#footer
+  margin: $section-margin 0
+  text-align: right
+  a
+    color: #bbb
