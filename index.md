@@ -8,7 +8,8 @@ title: senan kelly
 -- **[more]({{ '/about' | relative_url }})**
 
 # pages
--- [music search]({{ '/music_search' | relative_url }})
+-- [music search]({{ '/music_search' | relative_url }})  
+-- [sem]({{ '/sem' | relative_url }})
 
 # blog posts
 {% for post in site.posts -%}
