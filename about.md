@@ -23,6 +23,6 @@ title: about
 
 # irc
 -- freenode (#python, #go-nuts, #vim, #git)  
--- geekshed
+-- geekshed  
 -- espernet (#renoise)  
 -- blinkenshell  
