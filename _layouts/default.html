@@ -19,8 +19,6 @@
   <body>
     <div id="header">
       <h1><a href='/'>{{ site.title }}</a></h1>
-      <!-- -->
-      <!-- navigation bar. internal first then external -->
       {%- assign current_page = page.url | downcase | remove: "/" %}
       <ul>
         {%- for item in site.data.navigation.internal %}
@@ -32,13 +30,9 @@
       </ul>
     </div>
     <div id="{{ page.style }}">
-      <!-- -->
-      <!-- the page itself -->
       {{ content }}
     </div>
     <div id="footer">
-      <!-- -->
-      <!-- footer. links to repo -->
       <p><a target="_blank" href="{{ site.repo }}">[source]</a></p>
     </div>
   </body>
