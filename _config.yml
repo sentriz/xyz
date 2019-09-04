@@ -16,16 +16,16 @@ kramdown:
   hard_wrap: false
 defaults:
   - scope:
-      path: ''
+      path: ""
       type: posts
     values:
       layout: post
       author: Senan Kelly
       css_file: post
 exclude:
-    - CNAME
-    - Gemfile
-    - Gemfile.lock
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
 plugins:
-    - jekyll-feed
-    - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-sitemap
