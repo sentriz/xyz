@@ -5,7 +5,7 @@ title: senan kelly
 
 # about
 
--- [cpssd](https://cpssd.net/) student from co. kildare, ireland
+-- [cpssd](https://cpssd.net/) student from co. kildare, ireland  
 -- **[more]({{ '/about' | relative_url }})**
 
 # blog posts
