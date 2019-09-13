@@ -26,6 +26,8 @@ exclude:
   - CNAME
   - Gemfile
   - Gemfile.lock
+  - readme.md
+  - vendor
 plugins:
   - jekyll-feed
   - jekyll-sitemap
