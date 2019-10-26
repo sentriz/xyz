@@ -1,7 +1,7 @@
 ##### testing locally
 
 ```sh
-docker run --rm \                                                                                                                                         master dirty
+docker run --rm \
     --volume "$PWD:/srv/jekyll" \
     --volume "$PWD/vendor/bundle:/usr/local/bundle" \
     --publish '4000:4000' \
