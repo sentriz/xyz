@@ -4,6 +4,17 @@
 @import reset
 @import config
 
+\:root
+  --colour-background: white
+  --colour-text: black
+  --colour-link: #1a0dab
+
+@media (prefers-color-scheme: dark)
+  \:root
+    --colour-background: black
+    --colour-text: white
+    --colour-link: #29c2ff
+
 body
   max-width: 500px
   margin: 0 auto
@@ -11,6 +22,8 @@ body
   font-size: 16px
   font-family: "Inconsolata"
   overflow-y: scroll
+  background-color: var(--colour-background)
+  color: var(--colour-text)
 
 img
   width: 100%
@@ -21,7 +34,7 @@ h1
 
 a
   text-decoration: none
-  color: #1a0dab
+  color: var(--colour-link)
 
 td
   border: 0px solid transparent
@@ -42,7 +55,7 @@ h1, #purdy
   h1
     margin-top: 0
     a
-      color: black
+      color: inherit
   ul
     text-align: right
     flex-grow: 1
