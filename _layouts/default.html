@@ -16,7 +16,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{{ '/assets/css/main.css' | relative_url }}"
+      href='{{ "/assets/css/main.css" | relative_url }}?q={{ "now" | date: "%N" }}'
     />
     <!-- seo -->
     <meta property="og:title" content="{{ site.title }}" />
