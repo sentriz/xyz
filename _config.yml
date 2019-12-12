@@ -20,7 +20,6 @@ defaults:
     values:
       layout: post
       author: Senan Kelly
-      css_file: post
 exclude:
   - CNAME
   - Gemfile

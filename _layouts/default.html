@@ -18,13 +18,6 @@
       type="text/css"
       href="{{ '/assets/css/main.css' | relative_url }}"
     />
-    {%- if page.css_file %}
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ '/assets/css/' | append: page.css_file | append: '.css' | relative_url }}"
-    />
-    {%- endif %}
     <!-- seo -->
     <meta property="og:title" content="{{ site.title }}" />
     <meta property="og:locale" content="{{ site.locale }}" />
