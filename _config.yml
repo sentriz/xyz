@@ -26,6 +26,8 @@ exclude:
   - Gemfile.lock
   - readme.md
   - vendor
+include:
+  - ".well-known"
 plugins:
   - jekyll-feed
   - jekyll-sitemap
