@@ -30,3 +30,7 @@ title: about
 -- geekshed  
 -- espernet (#renoise)  
 -- blinkenshell
+
+# matrix
+
+-- [@senan:senan.xyz](https://matrix.to/#/@senan:senan.xyz)
