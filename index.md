@@ -17,5 +17,4 @@ title: senan kelly
 <div id="purdy">
 <img src="{{ '/assets/images/purdy.jpg' | relative_url }}">
 <img src="{{ '/assets/images/purdy.jpg' | relative_url }}">
-<img src="{{ '/assets/images/purdy.jpg' | relative_url }}">
 </div>
