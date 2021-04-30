@@ -3,10 +3,8 @@ layout: default
 title: senan kelly
 ---
 
-# about
-
--- [cpssd](https://cpssd.net/) student from co. kildare, ireland  
--- **[more]({{ '/about' | relative_url }})**
+# welcome to my website
+for more about me, see **[here]({{ '/about' | relative_url }})**
 
 # blog posts
 
