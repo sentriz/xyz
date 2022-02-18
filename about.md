@@ -8,7 +8,7 @@ title: about
 -- from co. kildare, ireland  
 -- studied [cpssd](https://cpssd.net/) at [dcu](https://www.dcu.ie/)  
 -- worked [arista networks](https://www.arista.com/)  
--- working [hipeople](https://www.hipeople.io/)  
+-- working [hipeople](https://www.hipeople.io/)
 
 # programming ([github](https://github.com/sentriz))
 
@@ -30,11 +30,7 @@ title: about
 
 # irc
 
--- freenode (#python, #go-nuts, #vim, #git)  
--- geekshed  
+-- libera (#gonic, #go-nuts, #python, #vim, #git)  
+-- oftc (#pipewire)  
 -- espernet (#renoise)  
--- blinkenshell
-
-# matrix
-
--- [@senan:senan.xyz](https://matrix.to/#/@senan:senan.xyz)
+-- geekshed
