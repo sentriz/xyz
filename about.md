@@ -10,15 +10,16 @@ title: about
 -- worked [arista networks](https://www.arista.com/)  
 -- working [hipeople](https://www.hipeople.io/)
 
-# programming ([github](https://github.com/sentriz))
+# programming
 
+-- go [see projects and tools](https://go.senan.xyz)
+-- docker
 -- python 3, flask, sqlalchemy, gevent, more  
--- go, docker, kubernetes  
 -- vue, react, typescript, etc  
 -- shell  
 -- some java
 
-# music ([lastfm](https://www.last.fm/user/sentriz))
+# music
 
 -- [beefheart](http://open.spotify.com/album/0dfhgsfkg7g58cke33glah), [zappa](http://open.spotify.com/artist/6ra4giogczqzmoauecftgn)  
 -- [canterbury scene](https://en.wikipedia.org/wiki/canterbury_scene)  
@@ -34,3 +35,10 @@ title: about
 -- oftc (#pipewire)  
 -- espernet (#renoise)  
 -- geekshed
+
+# misc links
+
+-- [github.com/sentriz](https://github.com/sentriz)  
+-- [last.fm/user/sentriz](https://last.fm/user/sentriz)  
+-- [rateyourmusic.com/~sentriz](https://rateyourmusic.com/~sentriz)  
+-- [@senan@xaq.cz](https://social.xaq.cz/@senan)
