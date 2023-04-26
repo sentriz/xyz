@@ -12,8 +12,8 @@ title: about
 
 # programming
 
--- go [see projects and tools](https://go.senan.xyz)
--- docker
+-- go [see projects and tools](https://go.senan.xyz)  
+-- docker  
 -- python 3, flask, sqlalchemy, gevent, more  
 -- vue, react, typescript, etc  
 -- shell  
