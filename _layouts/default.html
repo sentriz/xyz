@@ -18,12 +18,15 @@
       type="text/css"
       href='{{ "/assets/css/main.css" | relative_url }}?q={{ "now" | date: "%N" }}'
     />
+
     <!-- seo -->
+    <link rel="canonical" href="{{ site.url }}" />
+    <meta name="description" content="{{ site.description }}" />
+
+    <!-- opengraph -->
     <meta property="og:title" content="{{ site.title }}" />
     <meta property="og:locale" content="{{ site.locale }}" />
-    <meta name="description" content="{{ site.description }}" />
     <meta property="og:description" content="{{ site.description }}" />
-    <link rel="canonical" href="{{ site.url }}" />
     <meta property="og:url" content="{{ site.url }}" />
     <meta property="og:site_name" content="{{ site.title }}" />
   </head>
@@ -41,8 +44,6 @@
         </li>
       </ul>
     </div>
-    <div id="{{ page.style }}">
-      {{ content }}
-    </div>
+    <div id="{{ page.style }}">{{ content }}</div>
   </body>
 </html>
