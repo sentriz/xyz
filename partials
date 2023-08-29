@@ -1,0 +1,39 @@
+{{ define "site_name" }}senan kelly{{ end }}
+{{ define "site_desc" }}irish software engineer{{ end }}
+{{ define "site_link" }}https://senan.xyz{{ end }}
+{{ define "fedi_link" }}https://social.xaq.cz/@senan{{ end }}
+
+{{ define "header" }}
+  <meta charset="utf-8" />
+  <title>{{ template "title" }}</title>
+  <link rel="icon" href="/images/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="/styles/build.css?v={{ .DATE }}" />
+  <meta name="description" content="irish software engineer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta property="og:description" content="{{ template "site_desc" }}" />
+  <meta property="og:locale" content="en_IE" />
+  <meta property="og:site_name" content="{{ template "site_name" }}" />
+  <meta property="og:title" content="{{ template "title" }}" />
+  <meta property="og:url" content="{{ template "site_link" }}" />
+  <link href="{{ template "fedi_link" }}" rel="me" />
+{{ end }}
+
+{{ define "layout" }}
+  <!doctype html>
+  <html>
+    <head>
+      {{ template "header" . }}
+    </head>
+    <body class="leading-[1rem] text-gray-800 md:flex md:justify-center md:bg-zinc-50">
+      <div class="md:m-5 md:w-[550px] md:bg-white md:shadow-[-5px_5px_12px_2px_rgba(0,0,0,0.05)]">
+        <div class="flex items-center justify-between gap-5 whitespace-nowrap border-b border-gray-200 bg-zinc-500 pl-5">
+          <a class="text-white" href="/"><h1>{{ template "title" }}</h1></a>
+          <img class="hidden w-[300px] md:block" src="/images/gif.gif" />
+        </div>
+        <div class="p-5">
+          {{ template "content" . }}
+        </div>
+      </div>
+    </body>
+  </html>
+{{ end }}

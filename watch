@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+
+# npm install --save-dev prettier prettier-plugin-go-template prettier-plugin-tailwindcss
+# prettier --write --parser go-template partials ./**/*.tmpl
+
+readlink -f -- partials ./**.tmpl | entr -s 'env DATE=(date +%s) tmplc partials ./**.tmpl' &
+npx tailwindcss --input styles/style.css --output styles/build.css --watch &
+serve :4000 &
+
+wait

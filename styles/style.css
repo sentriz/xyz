@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/inconsolata-v31-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/inconsolata-v31-latin-700.woff2') format('woff2');
+}
+
+p,
+pre {
+  @apply mt-2;
+}
+
+h1 {
+  @apply text-lg;
+}
+h2 {
+  @apply text-lg font-bold;
+}
+
+a {
+  @apply cursor-pointer text-blue-700;
+}
+
+ul,
+ol {
+  @apply ml-5 list-disc;
+}
+
+code,
+pre {
+  @apply italic text-gray-600 font-bold;
+}
