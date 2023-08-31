@@ -1,0 +1,9 @@
+{{ define "page_title" }}{{ template "post_title" }}{{ end }}
+
+{{ define "content" }}
+  <h1>{{ template "post_title" }}</h1>
+  <i>{{ template "post_date" }}</i>
+  <hr class="my-3" />
+
+  {{ template "post_content" }}
+{{ end }}

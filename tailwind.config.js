@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./partials", "./**/*.tmpl"],
+  content: ["./*.partial", "./**/*.tmpl"],
   theme: {
     fontFamily: {
       sans: ["Inconsolata", "monospace"],
