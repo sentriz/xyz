@@ -621,8 +621,6 @@ video {
 }
 
 @font-face {
-  font-display: swap;
-
   font-family: 'Inconsolata';
 
   font-style: normal;
@@ -633,8 +631,6 @@ video {
 }
 
 @font-face {
-  font-display: swap;
-
   font-family: 'Inconsolata';
 
   font-style: normal;
