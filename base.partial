@@ -18,7 +18,6 @@
   <meta property="og:url" content="{{ template "site_link" }}" />
   <meta property="og:title" content="{{ template "page_title" }}" />
   <link href="{{ template "fedi_link" }}" rel="me" />
-
 {{ end }}
 
 {{ define "layout" }}
