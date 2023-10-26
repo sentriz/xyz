@@ -26,8 +26,8 @@
     <head>
       {{ template "header" . }}
     </head>
-    <body class="leading-[1rem] text-gray-800 md:flex md:justify-center md:bg-zinc-50">
-      <div class="md:m-5 md:w-[550px] md:bg-white md:shadow-[-5px_5px_12px_2px_rgba(0,0,0,0.05)]">
+    <body class="leading-[1rem] text-gray-800 md:flex md:flex-col md:items-center md:bg-zinc-50">
+      <div class="md:w-[550px] md:bg-white md:mt-5 md:shadow-[-5px_5px_12px_2px_rgba(0,0,0,0.05)]">
         <div class="flex items-center justify-between gap-5 whitespace-nowrap border-b border-gray-200 bg-zinc-500 pl-5">
           <a class="text-white" href="/"><h1>{{ template "site_name" }}</h1></a>
           <img class="hidden w-[300px] md:block" src="/images/gif-300.gif" />
@@ -35,6 +35,9 @@
         <div class="p-5">
           {{ template "content" . }}
         </div>
+      </div>
+      <div class="px-5 py-3 md:w-[550px]">
+        {{ block "sub" . }}{{ end }}
       </div>
     </body>
   </html>

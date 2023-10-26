@@ -3,6 +3,8 @@
 
 
 
+
+
   <!doctype html>
   <html>
     <head>
@@ -12,7 +14,7 @@
   <link rel="preload" href="/fonts/inconsolata-v31-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inconsolata-v31-latin-700.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" href="/images/favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="/styles/build.css?v=1698346276" />
+  <link rel="stylesheet" type="text/css" href="/styles/build.css?v=1698364951" />
   <meta name="description" content="irish software engineer" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <meta property="og:locale" content="en_IE" />
@@ -23,8 +25,8 @@
   <link href="https://social.xaq.cz/@senan" rel="me" />
 
     </head>
-    <body class="leading-[1rem] text-gray-800 md:flex md:justify-center md:bg-zinc-50">
-      <div class="md:m-5 md:w-[550px] md:bg-white md:shadow-[-5px_5px_12px_2px_rgba(0,0,0,0.05)]">
+    <body class="leading-[1rem] text-gray-800 md:flex md:flex-col md:items-center md:bg-zinc-50">
+      <div class="md:w-[550px] md:bg-white md:mt-5 md:shadow-[-5px_5px_12px_2px_rgba(0,0,0,0.05)]">
         <div class="flex items-center justify-between gap-5 whitespace-nowrap border-b border-gray-200 bg-zinc-500 pl-5">
           <a class="text-white" href="/"><h1>senan kelly</h1></a>
           <img class="hidden w-[300px] md:block" src="/images/gif-300.gif" />
@@ -86,6 +88,26 @@
   </p>
 
         </div>
+      </div>
+      <div class="px-5 py-3 md:w-[550px]">
+        
+  <div id="np" class="hidden text-gray-500 md:text-center">
+    playing now ♫ <span class="artist text-gray-700 italic"></span> — <span class="track"></span>
+  </div>
+
+  <script type="text/javascript">
+  (async () => {
+  const resp = await fetch("https://now.senan.xyz")
+  const text = await resp.text()
+  const [ artist, track ] = text.split("\t")
+  if (!artist || !track) return
+
+  document.querySelector("#np .artist").textContent = artist
+  document.querySelector("#np .track").textContent = track
+  document.querySelector("#np").classList.remove("hidden")
+  })()
+  </script>
+
       </div>
     </body>
   </html>

@@ -56,4 +56,23 @@
   </p>
 {{ end }}
 
+{{ define "sub" }}
+  <div id="np" class="hidden text-gray-500 md:text-center">
+    playing now ♫ <span class="artist text-gray-700 italic"></span> — <span class="track"></span>
+  </div>
+
+  <script type="text/javascript">
+  (async () => {
+  const resp = await fetch("https://now.senan.xyz")
+  const text = await resp.text()
+  const [ artist, track ] = text.split("\t")
+  if (!artist || !track) return
+
+  document.querySelector("#np .artist").textContent = artist
+  document.querySelector("#np .track").textContent = track
+  document.querySelector("#np").classList.remove("hidden")
+  })()
+  </script>
+{{ end }}
+
 {{ template "layout" . }}
