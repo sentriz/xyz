@@ -615,18 +615,6 @@ video {
   padding-right: 0.5rem;
 }
 
-.pt-1 {
-  padding-top: 0.25rem;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.text-center {
-  text-align: center;
-}
-
 .italic {
   font-style: italic;
 }
@@ -744,6 +732,10 @@ pre {
   .md\:bg-zinc-50 {
     --tw-bg-opacity: 1;
     background-color: rgb(250 250 250 / var(--tw-bg-opacity));
+  }
+
+  .md\:text-center {
+    text-align: center;
   }
 
   .md\:shadow-\[-5px_5px_12px_2px_rgba\(0\2c 0\2c 0\2c 0\.05\)\] {

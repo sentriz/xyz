@@ -36,7 +36,7 @@
           {{ template "content" . }}
         </div>
       </div>
-      <div class="px-5 py-3 text-center md:w-[550px]">
+      <div class="px-5 py-3 md:text-center md:w-[550px]">
         {{ block "sub" . }}{{ end }}
       </div>
     </body>
