@@ -57,20 +57,29 @@
 {{ end }}
 
 {{ define "sub" }}
-  <a id="np" class="hidden text-gray-500" href="https://last.fm/user/sentriz" target="_blank">
-    playing now ♫ <span class="artist text-gray-700 italic"></span> — <span class="track"></span>
-  </a>
+  <div id="now" class="hidden text-gray-500 inline-grid grid-cols-[repeat(3,minmax(0,auto))] gap-y-1 gap-x-2">
+    <span>playing now</span><span>♫</span><a href="https://last.fm/user/sentriz" target="_blank" class="text-gray-700 italic truncate"><span class="artist"></span> — <span class="track"></span></a>
+    <span class="gps-label"></span><span>↗</span><span class="gps-value text-gray-700 italic"></span>
+  </div>
 
   <script type="text/javascript">
   (async () => {
-  const resp = await fetch("https://now.senan.xyz")
-  const text = await resp.text()
-  const [ artist, track ] = text.split("\t")
-  if (!artist || !track) return
+  const resp = await fetch("https://now.senan.xyz");
+  const text = await resp.text();
+  let [artist, track, speed, altitude] = text.trim().split("\t");
+  [altitude, speed] = [Number(altitude ?? 0), Number(speed ?? 0)];
+  if (!artist || !track || (!speed && !altitude))
+    return;
 
-  document.querySelector("#np .artist").textContent = artist
-  document.querySelector("#np .track").textContent = track
-  document.querySelector("#np").classList.remove("hidden")
+  let [gpsLabel, gpsValue] = ["altitude", `${altitude.toFixed(2)} m`];
+  if (speed > 0)
+    [gpsLabel, gpsValue] = ["speed", `${speed.toFixed(2)} km/h`];
+
+  document.querySelector("#now .artist").textContent = artist;
+  document.querySelector("#now .track").textContent = track;
+  document.querySelector("#now .gps-label").textContent = gpsLabel;
+  document.querySelector("#now .gps-value").textContent = gpsValue;
+  document.querySelector("#now").classList.remove("hidden");
   })()
   </script>
 {{ end }}
