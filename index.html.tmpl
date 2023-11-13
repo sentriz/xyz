@@ -67,7 +67,7 @@
   const resp = await fetch("https://now.senan.xyz");
   const text = await resp.text();
   let [artist, track, speed, altitude] = text.trim().split("\t");
-  [altitude, speed] = [Number(altitude ?? 0), Number(speed ?? 0)];
+  [altitude, speed] = [Number(altitude ?? 0), Number(speed ?? 0)*3.6 /* m/s -> k/h */];
   if (!artist || !track || (!speed && !altitude))
     return;
 
