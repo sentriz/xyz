@@ -63,24 +63,27 @@
   </div>
 
   <script type="text/javascript">
-  (async () => {
-  const resp = await fetch("https://now.senan.xyz");
-  const text = await resp.text();
-  let [artist, track, speed, altitude] = text.trim().split("\t");
-  [altitude, speed] = [Number(altitude ?? 0), Number(speed ?? 0)*3.6 /* m/s -> k/h */];
-  if (!artist || !track || (!speed && !altitude))
-    return;
+  const check = async () => {
+    const resp = await fetch("https://now.senan.xyz");
+    const text = await resp.text();
+    let [artist, track, speed, altitude] = text.trim().split("\t");
+    [altitude, speed] = [Number(altitude ?? 0), Number(speed ?? 0)*3.6 /* m/s -> k/h */];
+    if (!artist || !track || (!speed && !altitude))
+      return;
 
-  let [gpsLabel, gpsValue] = ["altitude", `${altitude.toFixed(2)} m`];
-  if (speed > 0)
-    [gpsLabel, gpsValue] = ["speed", `${speed.toFixed(2)} km/h`];
+    let [gpsLabel, gpsValue] = ["altitude", `${altitude.toFixed(2)} m`];
+    if (speed > 0)
+      [gpsLabel, gpsValue] = ["speed", `${speed.toFixed(2)} km/h`];
 
-  document.querySelector("#now .artist").textContent = artist;
-  document.querySelector("#now .track").textContent = track;
-  document.querySelector("#now .gps-label").textContent = gpsLabel;
-  document.querySelector("#now .gps-value").textContent = gpsValue;
-  document.querySelector("#now").classList.remove("hidden");
-  })()
+    document.querySelector("#now .artist").textContent = artist;
+    document.querySelector("#now .track").textContent = track;
+    document.querySelector("#now .gps-label").textContent = gpsLabel;
+    document.querySelector("#now .gps-value").textContent = gpsValue;
+    document.querySelector("#now").classList.remove("hidden");
+  }
+
+  check()
+  setInterval(check, 7500)
   </script>
 {{ end }}
 
