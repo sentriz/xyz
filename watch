@@ -9,7 +9,7 @@ tmplc base.partial ./*.tmpl;
 tmplc base.partial post.partial ./20*/**/*.tmpl;
 ' &
 
-npx tailwindcss --input styles/style.css --output styles/build.css --watch &
+yes | npx tailwindcss --input styles/style.css --output styles/build.css --watch &
 
 serve :4000 &
 
