@@ -53,7 +53,8 @@ rule = "Host:t-2.my.domain"
 
   <pre>
 A      my.domain    &lt;home_ip&gt;
-CNAME  *.my.domain  my.domain</pre>
+CNAME  *.my.domain  my.domain</pre
+  >
 
   <p>and a DDNS client updating the <code>A</code> record, and <code>80</code>/<code>443</code> forwarded.</p>
 
@@ -70,7 +71,9 @@ CNAME  *.my.domain  my.domain</pre>
   <ul>
     <li>the <code>-N</code> means don’t run any remote commands, so you won’t get a shell on box. ssh will just keep the tunnel open without printing until you kill it</li>
     <li>
-      the <code>-R</code> is key. connections to the given port on the remote host (<code>&lt;traefik_backend_port&gt;</code>) are to be forwarded to the local side (<code>localhost:&lt;local_service_port&gt;</code>
+      the <code>-R</code> is key. connections to the given port on the remote host (<code>&lt;traefik_backend_port&gt;</code>) are to be forwarded to the local side (<code
+        >localhost:&lt;local_service_port&gt;</code
+      >
     </li>
   </ul>
 

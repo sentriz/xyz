@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+
+# npm install --save-dev tailwindcss@3 prettier prettier-plugin-go-template prettier-plugin-tailwindcss
+# go install go.senan.xyz/tmplc@latest
+
+set -x DATE (date +%s)
+tmplc base.partial ./*.tmpl
+tmplc base.partial post.partial ./20*/**/*.tmpl
+prettier --write --parser go-template ./*.partial ./*.html.tmpl ./20*/**/*.tmpl
+npx tailwindcss --input styles/style.css --output styles/build.css

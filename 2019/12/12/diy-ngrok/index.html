@@ -13,7 +13,7 @@
   <link rel="preload" href="/fonts/inconsolata-v31-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inconsolata-v31-latin-700.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" href="/images/favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="/styles/build.css?v=1704819902" />
+  <link rel="stylesheet" type="text/css" href="/styles/build.css?v=1775249556" />
   <meta name="description" content="irish software engineer" />
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <meta property="og:locale" content="en_IE" />
@@ -22,10 +22,11 @@
   <meta property="og:url" content="https://senan.xyz" />
   <meta property="og:title" content="diy ngrok" />
   <link href="https://social.xaq.cz/@senan" rel="me" />
+  <link rel="alternate" type="application/rss+xml" title="senan kelly" href="/feed.xml" />
 
     </head>
     <body class="leading-[1rem] text-gray-800 md:flex md:flex-col md:items-center md:bg-zinc-50">
-      <div class="md:w-[550px] md:bg-white md:mt-5 md:shadow-[-5px_5px_12px_2px_rgba(0,0,0,0.05)]">
+      <div class="md:mt-5 md:w-[550px] md:bg-white md:shadow-[-5px_5px_12px_2px_rgba(0,0,0,0.05)]">
         <div class="flex items-center justify-between gap-5 whitespace-nowrap border-b border-gray-200 bg-zinc-500 pl-5">
           <a class="text-white" href="/"><h1>senan kelly</h1></a>
           <img class="hidden w-[300px] md:block" src="/images/gif-300.gif" />
@@ -88,7 +89,8 @@ rule = "Host:t-2.my.domain"
 
   <pre>
 A      my.domain    &lt;home_ip&gt;
-CNAME  *.my.domain  my.domain</pre>
+CNAME  *.my.domain  my.domain</pre
+  >
 
   <p>and a DDNS client updating the <code>A</code> record, and <code>80</code>/<code>443</code> forwarded.</p>
 
@@ -105,7 +107,9 @@ CNAME  *.my.domain  my.domain</pre>
   <ul>
     <li>the <code>-N</code> means don’t run any remote commands, so you won’t get a shell on box. ssh will just keep the tunnel open without printing until you kill it</li>
     <li>
-      the <code>-R</code> is key. connections to the given port on the remote host (<code>&lt;traefik_backend_port&gt;</code>) are to be forwarded to the local side (<code>localhost:&lt;local_service_port&gt;</code>
+      the <code>-R</code> is key. connections to the given port on the remote host (<code>&lt;traefik_backend_port&gt;</code>) are to be forwarded to the local side (<code
+        >localhost:&lt;local_service_port&gt;</code
+      >
     </li>
   </ul>
 
