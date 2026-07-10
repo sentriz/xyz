@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A small filter explainer: runways, FIR and IIR</title>
+<style>
+  :root {
+    --surface-1: #fcfcfb;
+    --page: #f9f9f7;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --baseline: #c3c2b7;
+    --blue: #2a78d6;
+    --red: #e34948;
+    --aqua: #1baf7a;
+    --border: rgba(11,11,11,0.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1: #1a1a19;
+      --page: #0d0d0d;
+      --text-primary: #ffffff;
+      --text-secondary: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --baseline: #383835;
+      --blue: #3987e5;
+      --red: #e66767;
+      --aqua: #199e70;
+      --border: rgba(255,255,255,0.10);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px;
+    background: var(--page); color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    max-width: 920px; width: 100%;
+  }
+  h1 { font-size: 19px; font-weight: 650; margin: 0 0 2px; }
+  h2 { font-size: 16px; font-weight: 600; margin: 0 0 2px; }
+  .sub { color: var(--text-secondary); font-size: 13px; margin: 0 0 14px; line-height: 1.5; }
+  p.body { color: var(--text-secondary); font-size: 13.5px; line-height: 1.65; margin: 10px 0 0; }
+  p.body strong { color: var(--text-primary); font-weight: 600; }
+  .legend { display: flex; gap: 20px; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .key { width: 18px; height: 2px; border-radius: 1px; display: inline-block; }
+  svg { display: block; width: 100%; height: auto; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 760px) { .duo { grid-template-columns: 1fr; } }
+  .duo h3 { font-size: 13px; font-weight: 600; margin: 0 0 4px; }
+  .duo .cap { font-size: 12px; color: var(--muted); margin: 2px 0 0; line-height: 1.5; }
+  .controls {
+    display: flex; align-items: center; gap: 14px;
+    margin: 14px 0 4px; font-size: 13px; color: var(--text-secondary);
+    flex-wrap: wrap;
+  }
+  .controls input[type=range] { width: 220px; accent-color: var(--blue); }
+  .controls output { color: var(--text-primary); font-weight: 600; min-width: 52px; }
+  table { border-collapse: collapse; margin-top: 14px; font-size: 13px; width: 100%; }
+  th { text-align: left; color: var(--muted); font-weight: 500; padding: 6px 16px 6px 0; border-bottom: 1px solid var(--grid); }
+  td { padding: 7px 16px 7px 0; border-bottom: 1px solid var(--grid); color: var(--text-primary);
+       font-variant-numeric: tabular-nums; vertical-align: top; }
+  td.swatch { display: flex; align-items: center; gap: 8px; }
+  td.pro { color: var(--text-secondary); font-variant-numeric: normal; line-height: 1.5; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 12px; line-height: 1.5; }
+  .card a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--blue);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
+  }
+  .card a:hover { color: var(--blue); }
+  .tip {
+    position: fixed; pointer-events: none; display: none;
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; font-size: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12); line-height: 1.6; white-space: nowrap;
+  }
+  .tip b { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<!-- ============ 1. The runway ============ -->
+<div class="card">
+  <h1>1 · The reconstruction filter's runway</h1>
+  <p class="sub">A DAC's <a href="https://en.wikipedia.org/wiki/Reconstruction_filter">reconstruction filter</a> must stay flat to 20&nbsp;kHz (the audible band) and be gone by <a href="https://en.wikipedia.org/wiki/Nyquist_frequency">Nyquist</a>: playback creates mirror images of the spectrum above Nyquist that must be removed before they stress amplifiers and tweeters. (On the recording side the ADC's <a href="https://en.wikipedia.org/wiki/Anti-aliasing_filter">anti-alias filter</a> has the same runway, there to stop ultrasonics <a href="https://en.wikipedia.org/wiki/Aliasing">folding down</a> into the audio.) <a href="https://en.wikipedia.org/wiki/44,100_Hz">44.1&nbsp;kHz</a> gives the filter 2.05&nbsp;kHz to get there; 48&nbsp;kHz gives it 4&nbsp;kHz.</p>
+
+  <div class="legend">
+    <span><i class="key" style="background:var(--red)"></i>44.1 kHz</span>
+    <span><i class="key" style="background:var(--blue)"></i>48 kHz</span>
+  </div>
+
+  <svg id="runway" viewBox="0 0 880 400" role="img" aria-label="Filter magnitude response versus frequency for 44.1 and 48 kilohertz sample rates"></svg>
+
+  <div class="controls">
+    <label for="atten">Required stopband attenuation</label>
+    <input id="atten" type="range" min="60" max="120" step="1" value="96">
+    <output id="attenOut">96 dB</output>
+  </div>
+
+  <table id="facts">
+    <thead><tr><th>Sample rate</th><th>Nyquist</th><th>Transition band</th><th>FIR taps needed</th><th>Filter latency</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <p class="note">Tap counts use the <a href="https://en.wikipedia.org/wiki/Kaiser_window">Kaiser</a> estimate N ≈ (A − 8) / (2.285·Δω) for a linear-phase FIR; latency is the <a href="https://en.wikipedia.org/wiki/Group_delay_and_phase_delay">group delay</a> (N−1)/2 samples. A stricter stopband steepens both slopes, but 44.1&nbsp;kHz always needs ~1.8× the taps because its runway is half as wide. (Real DACs cheat this slightly: anything landing between 20&nbsp;kHz and Nyquist is itself ultrasonic, so the stopband only truly needs to start at fs−20&nbsp;kHz — about half the difficulty. The ratio between the two rates is unchanged.)</p>
+</div>
+
+<!-- ============ 2. FIR vs IIR: the names ============ -->
+<div class="card">
+  <h1>2 · FIR and IIR — what the names mean</h1>
+  <p class="sub">Feed a filter a single one-sample click (an impulse) and watch what comes out. That output — the <a href="https://en.wikipedia.org/wiki/Impulse_response"><em>impulse response</em></a> — is the filter's complete fingerprint, and its shape is what the names describe.</p>
+
+  <div class="duo">
+    <div>
+      <h3><i class="key" style="background:var(--blue); vertical-align:middle"></i> <a href="https://en.wikipedia.org/wiki/Finite_impulse_response">FIR — Finite Impulse Response</a></h3>
+      <svg id="firStem" viewBox="0 0 420 220" role="img" aria-label="FIR impulse response: a symmetric windowed sinc that ends"></svg>
+      <p class="cap">No feedback: the output is a weighted sum of the last N inputs. Each weight is a <strong>tap</strong>. After N samples the click has fully passed through — the response ends. Symmetric taps ⇒ every frequency is delayed equally (<a href="https://en.wikipedia.org/wiki/Linear_phase">linear phase</a>).</p>
+    </div>
+    <div>
+      <h3><i class="key" style="background:var(--aqua); vertical-align:middle"></i> <a href="https://en.wikipedia.org/wiki/Infinite_impulse_response">IIR — Infinite Impulse Response</a></h3>
+      <svg id="iirStem" viewBox="0 0 420 220" role="img" aria-label="IIR impulse response: a decaying ring that never exactly ends"></svg>
+      <p class="cap">Feedback: the output is fed back into itself, like a plucked string. The ring decays but never exactly reaches zero — hence <em>infinite</em>. A handful of coefficients buys a lot of filtering, but frequencies near the cutoff exit later than the rest.</p>
+    </div>
+  </div>
+
+  <p class="body">The FIR above is 47 taps of a <a href="https://en.wikipedia.org/wiki/Sinc_filter">windowed sinc</a> — the textbook lowpass. The IIR is a single <a href="https://en.wikipedia.org/wiki/Digital_biquad_filter"><strong>biquad</strong></a> (2 feedback + 3 feedforward coefficients), the building block almost all audio EQs, <a href="https://en.wikipedia.org/wiki/Audio_crossover">crossovers</a>, and tone controls are made of. Five numbers versus forty-seven: that economy is why IIR exists.</p>
+
+  <p class="body"><strong>Is this digital-only?</strong> The names come from DSP, but the split maps onto physics. Every practical analog filter — RC networks, LC speaker crossovers, the Butterworth below — is IIR by nature: capacitors and inductors store energy and release it exponentially, so the response decays forever. A true FIR needs delayed copies of the signal, and delay is trivial digitally (a sample buffer) but exotic in analog. It does exist — <a href="https://en.wikipedia.org/wiki/Surface_acoustic_wave">SAW filters</a> in RF front-ends tap an acoustic wave with metal fingers along a crystal, a genuinely analog FIR — but for audio, FIR only became practical when the signal became numbers.</p>
+</div>
+
+<!-- ============ 3. Same job, different machinery ============ -->
+<div class="card">
+  <h1>3 · Same cutoff, different behavior</h1>
+  <p class="sub">Both filters below are lowpasses aimed at the 48&nbsp;kHz runway: pass 20&nbsp;kHz, kill 24&nbsp;kHz. The FIR is 45 taps (Kaiser design; 23 multiplies once you fold the symmetric halves); the IIR is an 8th-order <a href="https://en.wikipedia.org/wiki/Butterworth_filter">Butterworth</a>, drawn as its classic analog prototype curve. Watch both charts, not just the first.</p>
+
+  <div class="legend">
+    <span><i class="key" style="background:var(--blue)"></i>FIR, 45 taps</span>
+    <span><i class="key" style="background:var(--aqua)"></i>IIR, Butterworth order <span id="ordLabel">8</span></span>
+  </div>
+
+  <div class="duo">
+    <div>
+      <h3>Magnitude — how much gets through</h3>
+      <svg id="magChart" viewBox="0 0 440 300"></svg>
+      <p class="cap">In a 4&nbsp;kHz transition band the FIR reaches ≈−60&nbsp;dB; the analog Butterworth's smooth slope has barely started falling. Steep-and-narrow is FIR territory.</p>
+    </div>
+    <div>
+      <h3>Group delay — when it gets through</h3>
+      <svg id="gdChart" viewBox="0 0 440 300"></svg>
+      <p class="cap">The FIR delays every frequency identically: a flat line, pure time-shift. The IIR delays frequencies near its cutoff the most — transients get smeared. This is what "linear phase" buys.</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <label for="order">IIR filter order</label>
+    <input id="order" type="range" min="2" max="16" step="1" value="8">
+    <output id="orderOut">8</output>
+    <span style="color:var(--muted)">— steeper magnitude, but the delay bump at the cutoff grows with it</span>
+  </div>
+
+  <table>
+    <thead><tr><th></th><th>FIR</th><th>IIR</th></tr></thead>
+    <tbody>
+      <tr><td class="swatch">Impulse response</td><td class="pro">Ends after N samples</td><td class="pro">Decays forever (feedback)</td></tr>
+      <tr><td class="swatch">Phase</td><td class="pro">Exactly linear if taps are symmetric — constant delay</td><td class="pro">Never linear; delay peaks near cutoff</td></tr>
+      <tr><td class="swatch">Stability</td><td class="pro">Unconditional — no feedback, nothing to blow up</td><td class="pro">Must keep poles inside the unit circle; coefficient rounding can bite</td></tr>
+      <tr><td class="swatch">Cost per dB of slope</td><td class="pro">Expensive: narrow transition ⇒ many taps</td><td class="pro">Cheap: slope scales with order (6 dB/oct each)</td></tr>
+      <tr><td class="swatch">Latency</td><td class="pro">(N−1)/2 samples, fixed and known</td><td class="pro">Near zero away from cutoff</td></tr>
+      <tr><td class="swatch">Typical audio home</td><td class="pro">DAC/ADC anti-alias stages, oversampling, mastering EQ</td><td class="pro">Live EQ, tone controls, crossovers, synth filters</td></tr>
+    </tbody>
+  </table>
+
+  <p class="body"><strong>A caveat on the curves:</strong> the Butterworth plotted is the analog prototype — what an analog implementation, or a digital one running far above audio rates, would do. An actual digital Butterworth sampled at 48&nbsp;kHz with its cutoff this close to Nyquist behaves differently: the <a href="https://en.wikipedia.org/wiki/Bilinear_transform">bilinear transform</a>'s frequency warping squeezes its slope much steeper (and grows its delay bump to match). The phase lesson is unchanged; the exact magnitude numbers belong to the analog case.</p>
+
+  <p class="body"><strong>So why does your DAC use FIR?</strong> The anti-alias job is exactly the shape IIR is bad at: a brutally narrow transition band <em>and</em> a need for flat phase across the whole audible range. The tap cost is tamed by structure rather than avoided: the <a href="https://en.wikipedia.org/wiki/Delta-sigma_modulation">delta-sigma</a> converter <a href="https://en.wikipedia.org/wiki/Oversampling">oversamples</a> internally (64–512×), and the one genuinely sharp filter runs once, at the lowest rate, as a <a href="https://en.wikipedia.org/wiki/Half-band_filter"><em>half-band</em> FIR</a> — symmetry forces half its taps to be exactly zero. Every stage after it, including the final analog smoothing filter, sees a runway of hundreds of kHz where filtering is nearly free.</p>
+</div>
+
+<!-- ============ 4. Phase ============ -->
+<div class="card">
+  <h1>4 · Phase — when each frequency arrives</h1>
+  <p class="sub">Magnitude says how much of each frequency survives; phase says <em>when</em> it comes out. Filters with identical magnitude can time-shift frequencies completely differently. Below, the section-3 FIR is rebuilt two ways: the magnitudes match to 0.01&nbsp;dB, but the impulse responses have opposite personalities.</p>
+
+  <div class="duo">
+    <div>
+      <h3><i class="key" style="background:var(--blue); vertical-align:middle"></i> <a href="https://en.wikipedia.org/wiki/Linear_phase">Linear phase</a></h3>
+      <svg id="linStem" viewBox="0 0 420 220" role="img" aria-label="Linear phase impulse response: symmetric, rings before and after the peak"></svg>
+      <p class="cap">Symmetric around the peak at tap 22 — so it rings <strong>before</strong> the transient as well as after (pre-ringing). Every frequency is delayed by exactly the same 22 samples.</p>
+    </div>
+    <div>
+      <h3><i class="key" style="background:var(--red); vertical-align:middle"></i> <a href="https://en.wikipedia.org/wiki/Minimum_phase">Minimum phase</a></h3>
+      <svg id="minStem" viewBox="0 0 420 220" role="img" aria-label="Minimum phase impulse response: peak at the first tap, rings only afterward"></svg>
+      <p class="cap">Same magnitude, energy packed as early as mathematically possible: the peak is at tap 0 and all ringing trails <strong>after</strong> the transient — the way familiar analog filters behave.</p>
+    </div>
+  </div>
+
+  <div class="duo" style="margin-top:14px">
+    <div>
+      <h3>Magnitude — one visible curve, because they're identical</h3>
+      <svg id="mpMag" viewBox="0 0 440 300"></svg>
+      <p class="cap">The wide red band is the minimum-phase response drawn underneath the blue linear-phase one. Magnitude alone cannot tell these filters apart.</p>
+    </div>
+    <div>
+      <h3>Group delay — where they differ</h3>
+      <svg id="mpGd" viewBox="0 0 440 300"></svg>
+      <p class="cap">Linear phase: every frequency waits the same 0.46&nbsp;ms. Minimum phase: almost everything exits nearly immediately, with a small wait near the cutoff — the least delay any filter with this magnitude can have.</p>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Phase type</th><th>Impulse shape</th><th>Delay</th><th>Where you meet it</th></tr></thead>
+    <tbody>
+      <tr><td class="swatch">Linear</td><td class="pro">Symmetric; rings before and after</td><td class="pro">Constant for all frequencies: (N−1)/2 samples</td><td class="pro">DAC/ADC filters, mastering EQ, anything FIR with symmetric taps</td></tr>
+      <tr><td class="swatch">Minimum</td><td class="pro">Front-loaded; rings only after</td><td class="pro">The lowest possible for that magnitude; varies with frequency</td><td class="pro">RC/LC circuits and most everyday analog filters, typical IIR designs, "minimum phase" DAC modes</td></tr>
+      <tr><td class="swatch">Maximum</td><td class="pro">Minimum phase played backwards; all ringing before</td><td class="pro">The highest possible</td><td class="pro">Almost nowhere on purpose — reverse-reverb style effects</td></tr>
+      <tr><td class="swatch">Mixed</td><td class="pro">Anything between the extremes</td><td class="pro">In between</td><td class="pro">"Intermediate phase" resampler and DAC modes</td></tr>
+      <tr><td class="swatch"><a href="https://en.wikipedia.org/wiki/All-pass_filter">All-pass</a></td><td class="pro">Flat magnitude — phase shift only</td><td class="pro">Pure delay reshaping, removes nothing</td><td class="pro">Crossover time-alignment, <a href="https://en.wikipedia.org/wiki/Phaser_(effect)">phasers</a>, reverb diffusers</td></tr>
+    </tbody>
+  </table>
+
+  <p class="body"><strong>Why anyone cares:</strong> a minimum-phase filter's ringing hides <em>behind</em> the transient, where the ear masks it; linear phase rings <em>before</em> the transient too (<a href="https://en.wikipedia.org/wiki/Pre-echo">pre-echo</a>), which nothing in nature does. That argument carries real weight for filters acting <em>inside</em> the audible band (EQ, lossy codecs); for a reconstruction filter ringing at ~22&nbsp;kHz its audibility is contested at best — yet it is exactly what the "filter: sharp / slow / minimum phase" menu on hi-fi DACs is choosing between. In exchange, linear phase keeps the waveform's shape perfectly intact across the band — no frequency smearing — which is why DAC reconstruction filters default to it and mastering EQs offer it as a mode, with its fixed latency as the price. Two useful facts fall out of "minimum": its phase is fully determined by its magnitude (there is no freedom left), and it is the only version whose inverse is also stable (provided the magnitude never dips to exactly zero) — which is why <a href="https://en.wikipedia.org/wiki/Digital_room_correction">room-correction</a> systems invert only the minimum-phase part of what they measure.</p>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+const NS = 'http://www.w3.org/2000/svg';
+function el(svg, name, attrs) {
+  const e = document.createElementNS(NS, name);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  svg.appendChild(e);
+  return e;
+}
+
+/* ---------- 1. Runway ---------- */
+const RATES = [
+  { name: '44.1 kHz', fs: 44100, nyq: 22050, color: 'var(--red)'  },
+  { name: '48 kHz',   fs: 48000, nyq: 24000, color: 'var(--blue)' },
+];
+const PASS_EDGE = 20000;
+const RW = { W: 880, H: 400, M: { top: 46, right: 24, bottom: 40, left: 56 }, FMAX: 26000, DBMIN: -130 };
+const rx = f => RW.M.left + (f / RW.FMAX) * (RW.W - RW.M.left - RW.M.right);
+const ry = db => RW.M.top + (-db / -RW.DBMIN) * (RW.H - RW.M.top - RW.M.bottom);
+
+function runwayGain(f, nyq, A) {
+  if (f <= PASS_EDGE) return 0;
+  if (f >= nyq) return -A;
+  const t = (f - PASS_EDGE) / (nyq - PASS_EDGE);
+  return -A * (1 - Math.cos(Math.PI * t)) / 2;
+}
+function kaiserTaps(fs, nyq, A) {
+  const dw = 2 * Math.PI * (nyq - PASS_EDGE) / fs;
+  return Math.ceil((A - 7.95) / (2.285 * dw));
+}
+
+const runwaySvg = document.getElementById('runway');
+function drawRunway(A) {
+  runwaySvg.innerHTML = '';
+  const { M, W, H, FMAX, DBMIN } = RW;
+
+  el(runwaySvg, 'rect', { x: rx(0), y: M.top, width: rx(PASS_EDGE) - rx(0), height: H - M.top - M.bottom,
+                          fill: 'currentColor', opacity: 0.035 });
+  el(runwaySvg, 'text', { x: rx(10000), y: M.top + 18, 'text-anchor': 'middle', 'font-size': 12,
+                          fill: 'var(--muted)' }).textContent = 'audible band (flat passband)';
+
+  for (let db = 0; db >= DBMIN + 10; db -= 20) {
+    el(runwaySvg, 'line', { x1: M.left, x2: W - M.right, y1: ry(db), y2: ry(db), stroke: 'var(--grid)', 'stroke-width': 1 });
+    el(runwaySvg, 'text', { x: M.left - 8, y: ry(db) + 4, 'text-anchor': 'end', 'font-size': 11,
+                            fill: 'var(--muted)' }).textContent = db;
+  }
+  el(runwaySvg, 'text', { x: 14, y: M.top - 8, 'font-size': 11, fill: 'var(--muted)' }).textContent = 'dB';
+
+  for (const f of [0, 5000, 10000, 15000, 25000]) {
+    el(runwaySvg, 'text', { x: rx(f), y: H - M.bottom + 18, 'text-anchor': 'middle', 'font-size': 11,
+                            fill: 'var(--muted)' }).textContent = (f / 1000) + (f === 25000 ? ' kHz' : '');
+  }
+  el(runwaySvg, 'line', { x1: M.left, x2: W - M.right, y1: ry(0), y2: ry(0), stroke: 'var(--baseline)', 'stroke-width': 1 });
+  el(runwaySvg, 'line', { x1: rx(PASS_EDGE), x2: rx(PASS_EDGE), y1: M.top, y2: H - M.bottom,
+                          stroke: 'var(--baseline)', 'stroke-width': 1 });
+  el(runwaySvg, 'text', { x: rx(PASS_EDGE), y: H - M.bottom + 18, 'text-anchor': 'middle', 'font-size': 11,
+                          fill: 'var(--text-secondary)' }).textContent = '20';
+
+  for (const r of RATES) {
+    el(runwaySvg, 'line', { x1: rx(r.nyq), x2: rx(r.nyq), y1: M.top, y2: H - M.bottom,
+                            stroke: r.color, 'stroke-width': 1, opacity: 0.45 });
+    el(runwaySvg, 'text', { x: rx(r.nyq), y: H - M.bottom + 32, 'text-anchor': 'middle', 'font-size': 11,
+                            fill: 'var(--text-secondary)' }).textContent = 'Nyq ' + (r.nyq / 1000);
+
+    const yBr = r.fs === 48000 ? M.top - 22 : M.top - 4;
+    el(runwaySvg, 'line', { x1: rx(PASS_EDGE), x2: rx(r.nyq), y1: yBr, y2: yBr, stroke: r.color,
+                            'stroke-width': 2, 'stroke-linecap': 'round' });
+    el(runwaySvg, 'text', { x: (rx(PASS_EDGE) + rx(r.nyq)) / 2, y: yBr - 5, 'text-anchor': 'middle',
+                            'font-size': 11, fill: 'var(--text-secondary)' })
+      .textContent = ((r.nyq - PASS_EDGE) / 1000).toFixed(2).replace(/\.?0+$/, '') + ' kHz runway';
+
+    let d = '';
+    for (let px = 0; px <= 440; px++) {
+      const f = (px / 440) * FMAX;
+      d += (px ? 'L' : 'M') + rx(f).toFixed(1) + ',' + ry(Math.max(runwayGain(f, r.nyq, A), DBMIN)).toFixed(1);
+    }
+    el(runwaySvg, 'path', { d, fill: 'none', stroke: r.color, 'stroke-width': 2,
+                            'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+
+    const fMid = PASS_EDGE + (r.nyq - PASS_EDGE) * 0.55;
+    const right = r.fs === 48000;
+    el(runwaySvg, 'text', { x: rx(fMid) + (right ? 10 : -10), y: ry(runwayGain(fMid, r.nyq, A)) + 4,
+                            'text-anchor': right ? 'start' : 'end', 'font-size': 12, 'font-weight': 600,
+                            fill: 'var(--text-primary)' }).textContent = r.name;
+  }
+
+  const tbody = document.querySelector('#facts tbody');
+  tbody.innerHTML = '';
+  for (const r of RATES) {
+    const n = kaiserTaps(r.fs, r.nyq, A);
+    const row = document.createElement('tr');
+    row.innerHTML =
+      '<td class="swatch"><i class="key" style="background:' + r.color + '"></i>' + r.name + '</td>' +
+      '<td>' + (r.nyq / 1000) + ' kHz</td>' +
+      '<td>' + ((r.nyq - PASS_EDGE) / 1000).toFixed(2) + ' kHz</td>' +
+      '<td>' + n + '</td>' +
+      '<td>' + ((n - 1) / 2 / r.fs * 1000).toFixed(2) + ' ms</td>';
+    tbody.appendChild(row);
+  }
+
+  el(runwaySvg, 'line', { class: 'cross', x1: 0, x2: 0, y1: M.top, y2: H - M.bottom,
+                          stroke: 'var(--baseline)', 'stroke-width': 1, opacity: 0 });
+}
+
+const attenSlider = document.getElementById('atten');
+const attenOut = document.getElementById('attenOut');
+function updateRunway() {
+  attenOut.textContent = attenSlider.value + ' dB';
+  drawRunway(+attenSlider.value);
+}
+attenSlider.addEventListener('input', updateRunway);
+updateRunway();
+
+/* ---------- 2. Impulse responses ---------- */
+function stemChart(svg, values, color, caption, sharedPeak) {
+  svg.innerHTML = '';
+  const W = 420, H = 220, M = { top: 16, right: 12, bottom: 26, left: 12 };
+  const n = values.length;
+  const peak = sharedPeak || Math.max(...values.map(Math.abs));
+  const sx = i => M.left + (i / (n - 1)) * (W - M.left - M.right);
+  const sy = v => {
+    const mid = M.top + (H - M.top - M.bottom) * 0.5;
+    return mid - (v / peak) * (H - M.top - M.bottom) * 0.44;
+  };
+
+  el(svg, 'line', { x1: M.left, x2: W - M.right, y1: sy(0), y2: sy(0), stroke: 'var(--baseline)', 'stroke-width': 1 });
+  values.forEach((v, i) => {
+    el(svg, 'line', { x1: sx(i), x2: sx(i), y1: sy(0), y2: sy(v), stroke: color, 'stroke-width': 2, 'stroke-linecap': 'round' });
+    el(svg, 'circle', { cx: sx(i), cy: sy(v), r: 3.2, fill: color, stroke: 'var(--surface-1)', 'stroke-width': 2 });
+  });
+  el(svg, 'text', { x: W - M.right, y: H - 6, 'text-anchor': 'end', 'font-size': 11,
+                    fill: 'var(--muted)' }).textContent = caption;
+  el(svg, 'text', { x: M.left, y: H - 6, 'font-size': 11, fill: 'var(--muted)' }).textContent = 'samples →';
+}
+
+const FIR_N = 47;
+const firTaps = [];
+{
+  const wc = 0.22 * Math.PI, mid = (FIR_N - 1) / 2;
+  for (let i = 0; i < FIR_N; i++) {
+    const m = i - mid;
+    const sinc = m === 0 ? wc / Math.PI : Math.sin(wc * m) / (Math.PI * m);
+    const win = 0.54 - 0.46 * Math.cos(2 * Math.PI * i / (FIR_N - 1));
+    firTaps.push(sinc * win);
+  }
+}
+stemChart(document.getElementById('firStem'), firTaps, 'var(--blue)', '47 taps, then exactly zero');
+
+const iirImpulse = [];
+{
+  const fc = 3000, fs = 48000, Q = 4;
+  const w0 = 2 * Math.PI * fc / fs, alpha = Math.sin(w0) / (2 * Q), cw = Math.cos(w0);
+  const a0 = 1 + alpha;
+  const b = [(1 - cw) / 2 / a0, (1 - cw) / a0, (1 - cw) / 2 / a0];
+  const a = [(-2 * cw) / a0, (1 - alpha) / a0];
+  let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+  for (let i = 0; i < 64; i++) {
+    const xin = i === 0 ? 1 : 0;
+    const yout = b[0] * xin + b[1] * x1 + b[2] * x2 - a[0] * y1 - a[1] * y2;
+    iirImpulse.push(yout);
+    x2 = x1; x1 = xin; y2 = y1; y1 = yout;
+  }
+}
+stemChart(document.getElementById('iirStem'), iirImpulse, 'var(--aqua)', 'still ringing… (one biquad, 5 coefficients)');
+
+/* ---------- 3. Magnitude & group delay ---------- */
+function besselI0(x) {
+  let s = 1, t = 1;
+  for (let k = 1; k < 30; k++) { t *= (x / (2 * k)) ** 2; s += t; }
+  return s;
+}
+const FIR3_N = 45, FIR3_A = 60, FS3 = 48000;
+const fir3 = [];
+{
+  const beta = 0.1102 * (FIR3_A - 8.7);
+  const wc = 2 * Math.PI * 22000 / FS3, mid = (FIR3_N - 1) / 2;
+  for (let i = 0; i < FIR3_N; i++) {
+    const m = i - mid;
+    const sinc = m === 0 ? wc / Math.PI : Math.sin(wc * m) / (Math.PI * m);
+    const r = 2 * i / (FIR3_N - 1) - 1;
+    fir3.push(sinc * besselI0(beta * Math.sqrt(1 - r * r)) / besselI0(beta));
+  }
+}
+function firMagDb(f) {
+  let re = 0, im = 0;
+  const w = 2 * Math.PI * f / FS3;
+  fir3.forEach((h, n) => { re += h * Math.cos(w * n); im -= h * Math.sin(w * n); });
+  return 20 * Math.log10(Math.max(Math.hypot(re, im), 1e-9));
+}
+
+function butterPoles(order) {
+  const poles = [];
+  for (let k = 1; k <= order; k++) {
+    const th = Math.PI * (2 * k + order - 1) / (2 * order);
+    poles.push([Math.cos(th), Math.sin(th)]);
+  }
+  return poles;
+}
+const FC3 = 20000;
+function butterMagDb(f, order) {
+  return -10 * Math.log10(1 + (f / FC3) ** (2 * order));
+}
+function butterPhase(f, order, poles) {
+  const W = f / FC3;
+  let ph = 0;
+  for (const [pr, pi] of poles) ph -= Math.atan2(W - pi, -pr);
+  return ph;
+}
+function butterGroupDelayMs(f, order, poles) {
+  const df = 20;
+  const dphi = butterPhase(f + df, order, poles) - butterPhase(f - df, order, poles);
+  return -dphi / (2 * Math.PI * 2 * df) * 1000;
+}
+
+const C3 = { W: 440, H: 300, M: { top: 20, right: 14, bottom: 36, left: 46 }, FMAX: 26000 };
+function makeAxes(svg, ymin, ymax, ytickStep, yUnit, yFmt) {
+  svg.innerHTML = '';
+  const { W, H, M, FMAX } = C3;
+  const cx = f => M.left + (f / FMAX) * (W - M.left - M.right);
+  const cy = v => M.top + (ymax - v) / (ymax - ymin) * (H - M.top - M.bottom);
+
+  for (let v = ymax; v >= ymin; v -= ytickStep) {
+    el(svg, 'line', { x1: M.left, x2: W - M.right, y1: cy(v), y2: cy(v), stroke: 'var(--grid)', 'stroke-width': 1 });
+    el(svg, 'text', { x: M.left - 6, y: cy(v) + 4, 'text-anchor': 'end', 'font-size': 10,
+                      fill: 'var(--muted)' }).textContent = yFmt ? yFmt(v) : v;
+  }
+  el(svg, 'text', { x: 8, y: M.top - 6, 'font-size': 10, fill: 'var(--muted)' }).textContent = yUnit;
+  for (const f of [0, 10000]) {
+    el(svg, 'text', { x: cx(f), y: H - M.bottom + 16, 'text-anchor': 'middle', 'font-size': 10,
+                      fill: 'var(--muted)' }).textContent = f / 1000;
+  }
+  el(svg, 'text', { x: W - M.right, y: H - M.bottom + 16, 'text-anchor': 'end', 'font-size': 10,
+                    fill: 'var(--muted)' }).textContent = 'kHz';
+  el(svg, 'line', { x1: cx(PASS_EDGE), x2: cx(PASS_EDGE), y1: M.top, y2: H - M.bottom,
+                    stroke: 'var(--baseline)', 'stroke-width': 1 });
+  el(svg, 'line', { x1: cx(24000), x2: cx(24000), y1: M.top, y2: H - M.bottom,
+                    stroke: 'var(--baseline)', 'stroke-width': 1, opacity: 0.5 });
+  el(svg, 'text', { x: cx(24000), y: H - M.bottom + 28, 'text-anchor': 'middle', 'font-size': 10,
+                    fill: 'var(--text-secondary)' }).textContent = 'Nyq 24';
+  el(svg, 'text', { x: cx(PASS_EDGE), y: H - M.bottom + 28, 'text-anchor': 'middle', 'font-size': 10,
+                    fill: 'var(--text-secondary)' }).textContent = '20';
+  return { cx, cy };
+}
+function plotCurve(svg, fn, color, ymin, ymax, cx, cy, labelText, labelF, fmax, width, opacity) {
+  let d = '';
+  const top = fmax || C3.FMAX;
+  for (let px = 0; px <= 220; px++) {
+    const f = (px / 220) * top;
+    if (f > top) break;
+    const v = Math.min(Math.max(fn(f), ymin), ymax);
+    d += (px ? 'L' : 'M') + cx(f).toFixed(1) + ',' + cy(v).toFixed(1);
+  }
+  el(svg, 'path', { d, fill: 'none', stroke: color, 'stroke-width': width || 2,
+                    opacity: opacity || 1,
+                    'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+  if (labelText) {
+    const v = Math.min(Math.max(fn(labelF), ymin), ymax);
+    el(svg, 'text', { x: cx(labelF), y: cy(v) - 8, 'text-anchor': 'middle', 'font-size': 11,
+                      'font-weight': 600, fill: 'var(--text-primary)' }).textContent = labelText;
+  }
+}
+
+const magSvg = document.getElementById('magChart');
+const gdSvg = document.getElementById('gdChart');
+function drawSection3(order) {
+  const poles = butterPoles(order);
+
+  let ax = makeAxes(magSvg, -100, 0, 20, 'dB');
+  plotCurve(magSvg, f => firMagDb(f), 'var(--blue)', -100, 0, ax.cx, ax.cy, 'FIR', 21600, 24000);
+  plotCurve(magSvg, f => butterMagDb(f, order), 'var(--aqua)', -100, 0, ax.cx, ax.cy, 'IIR', 25000);
+
+  const gdMax = Math.max(0.5, Math.ceil(butterGroupDelayMs(FC3, order, poles) * 1.15 * 10) / 10);
+  const step = gdMax > 1.2 ? 0.5 : 0.25;
+  ax = makeAxes(gdSvg, 0, gdMax, step, 'ms', v => v.toFixed(2));
+  const firGd = (FIR3_N - 1) / 2 / FS3 * 1000;
+  plotCurve(gdSvg, () => firGd, 'var(--blue)', 0, gdMax, ax.cx, ax.cy, 'FIR (flat)', 8000);
+  plotCurve(gdSvg, f => butterGroupDelayMs(f, order, poles), 'var(--aqua)', 0, gdMax, ax.cx, ax.cy, 'IIR', 16500);
+}
+
+const orderSlider = document.getElementById('order');
+const orderOut = document.getElementById('orderOut');
+function updateSection3() {
+  orderOut.textContent = orderSlider.value;
+  document.getElementById('ordLabel').textContent = orderSlider.value;
+  drawSection3(+orderSlider.value);
+}
+orderSlider.addEventListener('input', updateSection3);
+updateSection3();
+
+/* ---------- 4. Linear vs minimum phase ---------- */
+function fft(re, im, inv) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) {
+    let bit = n >> 1;
+    for (; j & bit; bit >>= 1) j ^= bit;
+    j ^= bit;
+    if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; }
+  }
+  for (let len = 2; len <= n; len <<= 1) {
+    const ang = (inv ? 2 : -2) * Math.PI / len;
+    const wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let i = 0; i < n; i += len) {
+      let cr = 1, ci = 0;
+      for (let k = 0; k < len / 2; k++) {
+        const ur = re[i + k], ui = im[i + k];
+        const vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci;
+        const vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr;
+        re[i + k] = ur + vr; im[i + k] = ui + vi;
+        re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi;
+        const ncr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = ncr;
+      }
+    }
+  }
+  if (inv) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+}
+
+function minimumPhase(h, nfft) {
+  const re = new Array(nfft).fill(0), im = new Array(nfft).fill(0);
+  h.forEach((v, i) => re[i] = v);
+  fft(re, im, false);
+  const logmag = re.map((r, i) => Math.log(Math.max(Math.hypot(r, im[i]), 1e-10)));
+  const cr = logmag.slice(), ci = new Array(nfft).fill(0);
+  fft(cr, ci, true);
+  for (let i = 1; i < nfft / 2; i++) { cr[i] *= 2; ci[i] *= 2; }
+  for (let i = nfft / 2 + 1; i < nfft; i++) { cr[i] = 0; ci[i] = 0; }
+  fft(cr, ci, false);
+  const er = cr.map((r, i) => Math.exp(r) * Math.cos(ci[i]));
+  const ei = cr.map((r, i) => Math.exp(r) * Math.sin(ci[i]));
+  fft(er, ei, true);
+  return er;
+}
+
+const hmin = minimumPhase(fir3, 1024).slice(0, FIR3_N);
+
+function magDbOf(h, f) {
+  let re = 0, im = 0;
+  const w = 2 * Math.PI * f / FS3;
+  h.forEach((v, n) => { re += v * Math.cos(w * n); im -= v * Math.sin(w * n); });
+  return 20 * Math.log10(Math.max(Math.hypot(re, im), 1e-9));
+}
+function groupDelayMsOf(h, f) {
+  const w = 2 * Math.PI * f / FS3;
+  let re = 0, im = 0, dre = 0, dim = 0;
+  h.forEach((v, n) => {
+    re += v * Math.cos(w * n); im -= v * Math.sin(w * n);
+    dre += n * v * Math.cos(w * n); dim -= n * v * Math.sin(w * n);
+  });
+  return (dre * re + dim * im) / Math.max(re * re + im * im, 1e-9) / FS3 * 1000;
+}
+
+const phasePeak = Math.max(...fir3.map(Math.abs), ...hmin.map(Math.abs));
+stemChart(document.getElementById('linStem'), fir3, 'var(--blue)', 'peak at tap 22, symmetric', phasePeak);
+stemChart(document.getElementById('minStem'), hmin, 'var(--red)', 'peak at tap 0, everything after', phasePeak);
+
+const mpMagSvg = document.getElementById('mpMag');
+const mpGdSvg = document.getElementById('mpGd');
+{
+  let ax = makeAxes(mpMagSvg, -100, 0, 20, 'dB');
+  plotCurve(mpMagSvg, f => magDbOf(hmin, f), 'var(--red)', -100, 0, ax.cx, ax.cy, null, 0, 24000, 7, 0.4);
+  plotCurve(mpMagSvg, f => firMagDb(f), 'var(--blue)', -100, 0, ax.cx, ax.cy, 'both', 21400, 24000);
+
+  const linGd = (FIR3_N - 1) / 2 / FS3 * 1000;
+  ax = makeAxes(mpGdSvg, 0, 0.6, 0.2, 'ms', v => v.toFixed(1));
+  plotCurve(mpGdSvg, () => linGd, 'var(--blue)', 0, 0.6, ax.cx, ax.cy, 'linear', 9000, 24000);
+  plotCurve(mpGdSvg, f => groupDelayMsOf(hmin, f), 'var(--red)', 0, 0.6, ax.cx, ax.cy, 'minimum', 15000, 22000);
+}
+
+/* ---------- shared crosshair tooltip ---------- */
+const tip = document.getElementById('tip');
+function attachHover(svg, geom, series) {
+  svg.addEventListener('mousemove', ev => {
+    const pt = svg.createSVGPoint();
+    pt.x = ev.clientX; pt.y = ev.clientY;
+    const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+    const { M, W, H, FMAX } = geom;
+    const f = (p.x - M.left) / (W - M.left - M.right) * FMAX;
+    const cross = svg.querySelector('.cross');
+    if (f < 0 || f > FMAX || p.y < M.top || p.y > H - M.bottom) {
+      tip.style.display = 'none';
+      if (cross) cross.setAttribute('opacity', 0);
+      return;
+    }
+    if (cross) {
+      const cxp = M.left + (f / FMAX) * (W - M.left - M.right);
+      cross.setAttribute('x1', cxp); cross.setAttribute('x2', cxp);
+      cross.setAttribute('opacity', 1);
+    }
+    tip.innerHTML = '<b>' + (f / 1000).toFixed(2) + ' kHz</b><br>' +
+      series().map(s => '<span style="color:' + s.color + '">●</span> ' + s.name + ': <b>' + s.fmt(f) + '</b>').join('<br>');
+    tip.style.display = 'block';
+    tip.style.left = (ev.clientX + 14) + 'px';
+    tip.style.top = (ev.clientY - 10) + 'px';
+  });
+  svg.addEventListener('mouseleave', () => {
+    tip.style.display = 'none';
+    const cross = svg.querySelector('.cross');
+    if (cross) cross.setAttribute('opacity', 0);
+  });
+}
+
+attachHover(runwaySvg, RW, () => RATES.map(r => ({
+  name: r.name, color: r.color,
+  fmt: f => runwayGain(f, r.nyq, +attenSlider.value).toFixed(1) + ' dB',
+})));
+attachHover(magSvg, C3, () => [
+  { name: 'FIR', color: 'var(--blue)', fmt: f => firMagDb(f).toFixed(1) + ' dB' },
+  { name: 'IIR', color: 'var(--aqua)', fmt: f => butterMagDb(f, +orderSlider.value).toFixed(1) + ' dB' },
+]);
+attachHover(mpMagSvg, C3, () => [
+  { name: 'linear', color: 'var(--blue)', fmt: f => firMagDb(Math.min(f, 24000)).toFixed(1) + ' dB' },
+  { name: 'minimum', color: 'var(--red)', fmt: f => magDbOf(hmin, Math.min(f, 24000)).toFixed(1) + ' dB' },
+]);
+attachHover(mpGdSvg, C3, () => [
+  { name: 'linear', color: 'var(--blue)', fmt: () => ((FIR3_N - 1) / 2 / FS3 * 1000).toFixed(2) + ' ms' },
+  { name: 'minimum', color: 'var(--red)', fmt: f => groupDelayMsOf(hmin, Math.min(f, 22000)).toFixed(3) + ' ms' },
+]);
+attachHover(gdSvg, C3, () => {
+  const poles = butterPoles(+orderSlider.value);
+  return [
+    { name: 'FIR', color: 'var(--blue)', fmt: () => ((FIR3_N - 1) / 2 / FS3 * 1000).toFixed(2) + ' ms' },
+    { name: 'IIR', color: 'var(--aqua)', fmt: f => butterGroupDelayMs(f, +orderSlider.value, poles).toFixed(2) + ' ms' },
+  ];
+});
+</script>
+</body>
+</html>
